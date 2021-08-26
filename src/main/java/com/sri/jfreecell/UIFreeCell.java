@@ -251,8 +251,10 @@ public class UIFreeCell extends JFrame {
     }
     
     public void showHelp() {
-        JPanel panel = new JPanel(new GridLayout(1,0));
-        panel.add(new JLabel("<html>Características<br>"
+    	
+    	
+      
+        JLabel bLabel = new JLabel("<html>Características<br>"
         		+ "Baralhos: 1;<br>"
         		+ "Dificuldade: Fácil;<br>"
         		+ "Tempo: Médio;<br>"
@@ -271,7 +273,9 @@ public class UIFreeCell extends JFrame {
         		+ "O jogo tem 8 fundações (parte inferior);<br>"
         		+ "As cartas nas pilhas devem ser organizadas em sequência decrescente e com cores alternadas;<br>"
         		+ "Pode-se mover um conjunto de cartas desde que elas estejam em sequência e existam células vazias e/ou espaços vazios para realizar o movimento;<br>"
-        		+ "Pilhas vazias podem ser ocupadas por qualquer carta ou conjunto de cartas em ordem decrescente e com cores alternadas.</html>"));
+        		+ "Pilhas vazias podem ser ocupadas por qualquer carta ou conjunto de cartas em ordem decrescente e com cores alternadas.</html>");
+        JPanel panel = new JPanel(new GridLayout(1,0));
+        panel.add(bLabel);
        
         showMessageDialog(this, panel, "Help", PLAIN_MESSAGE);
     }
