@@ -41,8 +41,8 @@ public class CardPileFoundation extends CardPile {
 	return false;
     }
 
-    @Override
-    public boolean isMovable(Card card) {
+   
+    public boolean isMovable() {
 	return false;
     }
     
