@@ -16,8 +16,5 @@ public class CardPileFreeCell extends CardPile {
 	return size() == 0;
     }
 
-    @Override
-    public boolean isMovable(Card card) {
-	return true;
-    }
+ 
 }
