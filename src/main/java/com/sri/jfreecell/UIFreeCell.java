@@ -219,10 +219,9 @@ public class UIFreeCell extends JFrame {
      */
     public void selectGame() {
         int gameNo = 1;
-        JLabel bLabel = new JLabel("Select a game number from 1 to 32000");
         JPanel panel = new JPanel(new GridLayout(2, 1));
-        panel.add(bLabel);
-        String userInput = showInputDialog(this, panel, "Game Number", PLAIN_MESSAGE);
+        panel.add(new JLabel("Select a game number from 1 to 32000"));
+        String userInput = showInputDialog(this, new JPanel(new GridLayout(2, 1)), "Game Number", PLAIN_MESSAGE);
         if (userInput == null)
             return;
         try {
@@ -236,7 +235,6 @@ public class UIFreeCell extends JFrame {
         setTitle("FreeCell #" + gameNo);
         model.loadGame(gameNo);
     }
-
     /**
      * Create and show About window.
      */
