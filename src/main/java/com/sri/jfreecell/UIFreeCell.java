@@ -251,9 +251,6 @@ public class UIFreeCell extends JFrame {
     }
     
     public void showHelp() {
-    	
-    	
-        
         JPanel panel = new JPanel(new GridLayout(1,0));
         panel.add(new JLabel("<html>Características<br>"
         		+ "Baralhos: 1;<br>"
