@@ -242,11 +242,9 @@ public class UIFreeCell extends JFrame {
      */
     public void showAbout() {
         icon.setImage(ImageUtil.getScaledImage(icon.getImage(), 40, 40));
-        JLabel aLabel = new JLabel("<html>FreeCell<br> v" + version + "</html>", icon, JLabel.LEFT);
-        JLabel bLabel = new JLabel("<html>\u00a9 2016-17 Sateesh Chandra G<br>All rights reserved.</html>");
         JPanel panel = new JPanel(new GridLayout(2, 1));
-        panel.add(aLabel);
-        panel.add(bLabel);
+        panel.add(new JLabel("<html>FreeCell<br> v" + version + "</html>", icon, JLabel.LEFT));
+        panel.add(new JLabel("<html>\u00a9 2016-17 Sateesh Chandra G<br>All rights reserved.</html>"));
         showMessageDialog(this, panel, "About FreeCell", PLAIN_MESSAGE);
     }
     
