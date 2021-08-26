@@ -11,7 +11,7 @@ public class FileUtil {
     public static final String STATE_FILE = "state.ser";
     public static final String STAT_FILE = "usrstat.ser";
 
-    public static String getAppDirectory() {
+    private static String getAppDirectory() {
         String userDir = System.getProperty("user.home");
         String appDir = userDir.concat(File.separator).concat(".jfreecell").concat(File.separator);
 
