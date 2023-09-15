@@ -77,7 +77,7 @@ import javax.swing.*;
  * Main class for FreeCell. Free Cell solitaire program. Main program / JFrame.
  * Adds a few components and the main graphics area, UICardPanel, that handles
  * the mouse and painting.
- * 
+ *
  * @author Sateesh Gampala
  * @version 5.0.1
  */
@@ -89,7 +89,7 @@ public class UIFreeCell extends JFrame {
     JLabel label1 = new JLabel("                                  Pilha de descanso                                                                             Pilha de descarte",  JLabel.LEFT);
     private static final Color BACKGROUND_COLOR = new Color(0, 110, 135);
 
-    
+
     public GameModel model;
 
     public static final String version = "5.2.10";
@@ -128,24 +128,24 @@ public class UIFreeCell extends JFrame {
         label1.setPreferredSize(new Dimension(50, 15));
         label1.setVerticalAlignment(JLabel.TOP);
         label1.setBackground(BACKGROUND_COLOR);
-        label1.setOpaque(true); 
+        label1.setOpaque(true);
         label1.setForeground(Color.white);
         label1.setFont(new Font("Serif", Font.PLAIN, 14));
 
-        
+
         JPanel content = new JPanel();
-        
+
         content.setLayout(new BorderLayout());
         label1.setVisible(true);
         content.add(label1, BorderLayout.NORTH);
-      
+
 
         content.add(controlPanel, BorderLayout.SOUTH);
 
         content.add(boardDisplay, BorderLayout.CENTER);
 
 
-        
+
         setContentPane(content);
         setJMenuBar(createMenu());
         setTitle("FreeCell #" + model.gameNo);
@@ -160,11 +160,11 @@ public class UIFreeCell extends JFrame {
         pack();
         setLocationRelativeTo(null);
         setResizable(true);
-       // setExtendedState(JFrame.MAXIMIZED_BOTH);
+        // setExtendedState(JFrame.MAXIMIZED_BOTH);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
         this.model.notifyChanges();
-        
+
     }
 
     private JMenuBar createMenu() {
@@ -192,7 +192,7 @@ public class UIFreeCell extends JFrame {
         createMenuItem(menu, HELP, VK_J, VK_F1, 0);
         createMenuItem(menu, ABOUT, VK_A, 0, 0);
         menuBar.add(menu);
-        
+
         return menuBar;
     }
 
@@ -249,34 +249,34 @@ public class UIFreeCell extends JFrame {
         panel.add(bLabel);
         showMessageDialog(this, panel, "About FreeCell", PLAIN_MESSAGE);
     }
-    
+
     public void showHelp() {
-    	
-    	
-      
-        JLabel bLabel = new JLabel("<html>Características<br>"
-        		+ "Baralhos: 1;<br>"
-        		+ "Dificuldade: Fácil;<br>"
-        		+ "Tempo: Médio;<br>"
-        		+ "Tipo: Habilidade;<br>"
-        		+ "Objetivo<br>"
-        		+ "O objetivo é mover todas as cartas para as fundações em ordem crescente no naipe usando o menor número possível de movimentos.<br>"
-        		+ "<br>"
-        		+ "O jogo<br>"
-        		+ "Fundações<br>"
-        		+ "Existem 4 fundações (canto superior direito);<br>"
-        		+ "As fundações aceitam as cartas em ordem crescente e com o mesmo naipe.<br>"
-        		+ "Células<br>"
-        		+ "São 4 células ao todo (canto superior esquerdo);<br>"
-        		+ "As células vázias são utilizadas como espaços temporários para fazer movimentos de pilhas e para jogadas estratégicas.<br>"
-        		+ "Pilhas<br>"
-        		+ "O jogo tem 8 fundações (parte inferior);<br>"
-        		+ "As cartas nas pilhas devem ser organizadas em sequência decrescente e com cores alternadas;<br>"
-        		+ "Pode-se mover um conjunto de cartas desde que elas estejam em sequência e existam células vazias e/ou espaços vazios para realizar o movimento;<br>"
-        		+ "Pilhas vazias podem ser ocupadas por qualquer carta ou conjunto de cartas em ordem decrescente e com cores alternadas.</html>");
+
+
+
+        JLabel bLabel = new JLabel("<html>Caracterï¿½sticas<br>"
+                + "Baralhos: 1;<br>"
+                + "Dificuldade: Fï¿½cil;<br>"
+                + "Tempo: Mï¿½dio;<br>"
+                + "Tipo: Habilidade;<br>"
+                + "Objetivo<br>"
+                + "O objetivo ï¿½ mover todas as cartas para as fundaï¿½ï¿½es em ordem crescente no naipe usando o menor nï¿½mero possï¿½vel de movimentos.<br>"
+                + "<br>"
+                + "O jogo<br>"
+                + "Fundaï¿½ï¿½es<br>"
+                + "Existem 4 fundaï¿½ï¿½es (canto superior direito);<br>"
+                + "As fundaï¿½ï¿½es aceitam as cartas em ordem crescente e com o mesmo naipe.<br>"
+                + "Cï¿½lulas<br>"
+                + "Sï¿½o 4 cï¿½lulas ao todo (canto superior esquerdo);<br>"
+                + "As cï¿½lulas vï¿½zias sï¿½o utilizadas como espaï¿½os temporï¿½rios para fazer movimentos de pilhas e para jogadas estratï¿½gicas.<br>"
+                + "Pilhas<br>"
+                + "O jogo tem 8 fundaï¿½ï¿½es (parte inferior);<br>"
+                + "As cartas nas pilhas devem ser organizadas em sequï¿½ncia decrescente e com cores alternadas;<br>"
+                + "Pode-se mover um conjunto de cartas desde que elas estejam em sequï¿½ncia e existam cï¿½lulas vazias e/ou espaï¿½os vazios para realizar o movimento;<br>"
+                + "Pilhas vazias podem ser ocupadas por qualquer carta ou conjunto de cartas em ordem decrescente e com cores alternadas.</html>");
         JPanel panel = new JPanel(new GridLayout(1,0));
         panel.add(bLabel);
-       
+
         showMessageDialog(this, panel, "Help", PLAIN_MESSAGE);
     }
 
@@ -313,7 +313,7 @@ public class UIFreeCell extends JFrame {
         }
         System.exit(0);
     }
-    
+
     @Override
     protected void finalize() throws Throwable {
         super.finalize();
