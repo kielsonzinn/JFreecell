@@ -254,25 +254,25 @@ public class UIFreeCell extends JFrame {
 
 
 
-        JLabel bLabel = new JLabel("<html>Caracter�sticas<br>"
+        JLabel bLabel = new JLabel("<html>Características<br>"
                 + "Baralhos: 1;<br>"
-                + "Dificuldade: F�cil;<br>"
-                + "Tempo: M�dio;<br>"
+                + "Dificuldade: Fácil;<br>"
+                + "Tempo: Médio;<br>"
                 + "Tipo: Habilidade;<br>"
                 + "Objetivo<br>"
-                + "O objetivo � mover todas as cartas para as funda��es em ordem crescente no naipe usando o menor n�mero poss�vel de movimentos.<br>"
+                + "O objetivo é mover todas as cartas para as fundações em ordem crescente no naipe usando o menor número possível de movimentos.<br>"
                 + "<br>"
                 + "O jogo<br>"
-                + "Funda��es<br>"
-                + "Existem 4 funda��es (canto superior direito);<br>"
-                + "As funda��es aceitam as cartas em ordem crescente e com o mesmo naipe.<br>"
-                + "C�lulas<br>"
-                + "S�o 4 c�lulas ao todo (canto superior esquerdo);<br>"
-                + "As c�lulas v�zias s�o utilizadas como espa�os tempor�rios para fazer movimentos de pilhas e para jogadas estrat�gicas.<br>"
+                + "Fundações<br>"
+                + "Existem 4 fundações (canto superior direito);<br>"
+                + "As fundações aceitam as cartas em ordem crescente e com o mesmo naipe.<br>"
+                + "Células<br>"
+                + "São 4 células ao todo (canto superior esquerdo);<br>"
+                + "As células vazias são utilizadas como espaços temporários para fazer movimentos de pilhas e para jogadas estratégicas.<br>"
                 + "Pilhas<br>"
-                + "O jogo tem 8 funda��es (parte inferior);<br>"
-                + "As cartas nas pilhas devem ser organizadas em sequ�ncia decrescente e com cores alternadas;<br>"
-                + "Pode-se mover um conjunto de cartas desde que elas estejam em sequ�ncia e existam c�lulas vazias e/ou espa�os vazios para realizar o movimento;<br>"
+                + "O jogo tem 8 fundações (parte inferior);<br>"
+                + "As cartas nas pilhas devem ser organizadas em sequência decrescente e com cores alternadas;<br>"
+                + "Pode-se mover um conjunto de cartas desde que elas estejam em sequéncia e existam células vazias e/ou espaços vazios para realizar o movimento;<br>"
                 + "Pilhas vazias podem ser ocupadas por qualquer carta ou conjunto de cartas em ordem decrescente e com cores alternadas.</html>");
         JPanel panel = new JPanel(new GridLayout(1,0));
         panel.add(bLabel);
