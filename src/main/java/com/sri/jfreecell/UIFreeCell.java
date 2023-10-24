@@ -68,10 +68,7 @@ import com.sri.jfreecell.util.ImageUtil;
 
 import java.awt.Dimension;
 
-
 import javax.swing.*;
-
-
 
 /**
  * Main class for FreeCell. Free Cell solitaire program. Main program / JFrame.
@@ -83,11 +80,12 @@ import javax.swing.*;
  */
 public class UIFreeCell extends JFrame {
    private static final long serialVersionUID = 1L;
-   private static final ClassLoader CLSLDR    = UIFreeCell.class.getClassLoader();
-   private static final ImageIcon icon        = new ImageIcon(CLSLDR.getResource("cardimages/icon.png"));
-   JLabel label1 = new JLabel("                                  Pilha de descanso                                                                             Pilha de descarte", JLabel.LEFT);
+   private static final ClassLoader CLSLDR = UIFreeCell.class.getClassLoader();
+   private static final ImageIcon icon = new ImageIcon(CLSLDR.getResource("cardimages/icon.png"));
+   JLabel label1 = new JLabel(
+         "                                  Pilha de descanso                                                                             Pilha de descarte",
+         JLabel.LEFT);
    private static final Color BACKGROUND_COLOR = new Color(0, 110, 135);
-
 
    public GameModel model;
 
@@ -99,8 +97,7 @@ public class UIFreeCell extends JFrame {
    private static final int PORT = 6789;
    private static ServerSocket socket;
 
-   public static void main(String[] args)
-   {
+   public static void main(String[] args) {
       checkIfRunning();
       try {
          UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
@@ -108,17 +105,14 @@ public class UIFreeCell extends JFrame {
          e.printStackTrace();
       }
 
-      SwingUtilities.invokeLater(new Runnable()
-      {
-         public void run()
-         {
+      SwingUtilities.invokeLater(new Runnable() {
+         public void run() {
             new UIFreeCell();
          }
       });
    }
 
-   public UIFreeCell()
-   {
+   public UIFreeCell() {
       checkAndLoadGame();
       boardDisplay = new UICardPanel(model);
       model.addGameListener(new GameListenerImpl(this));
@@ -135,28 +129,22 @@ public class UIFreeCell extends JFrame {
       label1.setForeground(Color.white);
       label1.setFont(new Font("Serif", Font.PLAIN, 14));
 
-
       JPanel content = new JPanel();
 
       content.setLayout(new BorderLayout());
       label1.setVisible(true);
       content.add(label1, BorderLayout.NORTH);
 
-
       content.add(controlPanel, BorderLayout.SOUTH);
 
       content.add(boardDisplay, BorderLayout.CENTER);
 
-
-
       setContentPane(content);
       setJMenuBar(createMenu());
       setTitle("FreeCell #" + model.gameNo);
-      this.addWindowListener(new WindowAdapter()
-      {
+      this.addWindowListener(new WindowAdapter() {
          @Override
-         public void windowClosing(WindowEvent e)
-         {
+         public void windowClosing(WindowEvent e) {
             exit(model.getState().equals(GameEvents.COMPLETE));
             e.getWindow().dispose();
          }
@@ -171,10 +159,9 @@ public class UIFreeCell extends JFrame {
       this.model.notifyChanges();
    }
 
-   private JMenuBar createMenu()
-   {
+   private JMenuBar createMenu() {
       JMenuBar menuBar = new JMenuBar();
-      JMenu    menu    = new JMenu("Game");
+      JMenu menu = new JMenu("Game");
 
       menu.setMnemonic(VK_G);
       menuBar.add(menu);
@@ -202,8 +189,7 @@ public class UIFreeCell extends JFrame {
       return menuBar;
    }
 
-   private JMenuItem createMenuItem(JMenu parent, String menuName, int mnemonic, int keyCode, int modifiers)
-   {
+   private JMenuItem createMenuItem(JMenu parent, String menuName, int mnemonic, int keyCode, int modifiers) {
       JMenuItem menuItem = new JMenuItem(menuName, mnemonic);
 
       if (keyCode > 0) {
@@ -214,13 +200,11 @@ public class UIFreeCell extends JFrame {
       return menuItem;
    }
 
-   public void updateCardCount(int count)
-   {
+   public void updateCardCount(int count) {
       cardCount.setText(count + " ");
    }
 
-   public void loadRandGame()
-   {
+   public void loadRandGame() {
       model.loadRandGame();
       setTitle("FreeCell #" + model.gameNo);
    }
@@ -228,11 +212,10 @@ public class UIFreeCell extends JFrame {
    /**
     * Shows window to select game.
     */
-   public void selectGame()
-   {
-      int    gameNo = 1;
+   public void selectGame() {
+      int gameNo = 1;
       JLabel bLabel = new JLabel("Select a game number from 1 to 32000");
-      JPanel panel  = new JPanel(new GridLayout(2, 1));
+      JPanel panel = new JPanel(new GridLayout(2, 1));
 
       panel.add(bLabel);
       String userInput = showInputDialog(this, panel, "Game Number", PLAIN_MESSAGE);
@@ -255,39 +238,37 @@ public class UIFreeCell extends JFrame {
    /**
     * Create and show About window.
     */
-   public void showAbout()
-   {
+   public void showAbout() {
       icon.setImage(ImageUtil.getScaledImage(icon.getImage(), 40, 40));
       JLabel aLabel = new JLabel("<html>FreeCell<br> v" + version + "</html>", icon, JLabel.LEFT);
       JLabel bLabel = new JLabel("<html>\u00a9 2016-17 Sateesh Chandra G<br>All rights reserved.</html>");
-      JPanel panel  = new JPanel(new GridLayout(2, 1));
+      JPanel panel = new JPanel(new GridLayout(2, 1));
       panel.add(aLabel);
       panel.add(bLabel);
       showMessageDialog(this, panel, "About FreeCell", PLAIN_MESSAGE);
    }
 
-   public void showHelp()
-   {
-      JLabel bLabel = new JLabel("<html>Características<br>"
-                                 + "Baralhos: 1;<br>"
-                                 + "Dificuldade: Fácil;<br>"
-                                 + "Tempo: Médio;<br>"
-                                 + "Tipo: Habilidade;<br>"
-                                 + "Objetivo<br>"
-                                 + "O objetivo é mover todas as cartas para as fundações em ordem crescente no naipe usando o menor número possível de movimentos.<br>"
-                                 + "<br>"
-                                 + "O jogo<br>"
-                                 + "Fundações<br>"
-                                 + "Existem 4 fundações (canto superior direito);<br>"
-                                 + "As fundações aceitam as cartas em ordem crescente e com o mesmo naipe.<br>"
-                                 + "Células<br>"
-                                 + "São 4 células ao todo (canto superior esquerdo);<br>"
-                                 + "As células vázias são utilizadas como espaços temporários para fazer movimentos de pilhas e para jogadas estratégicas.<br>"
-                                 + "Pilhas<br>"
-                                 + "O jogo tem 8 fundações (parte inferior);<br>"
-                                 + "As cartas nas pilhas devem ser organizadas em sequência decrescente e com cores alternadas;<br>"
-                                 + "Pode-se mover um conjunto de cartas desde que elas estejam em sequência e existam células vazias e/ou espaços vazios para realizar o movimento;<br>"
-                                 + "Pilhas vazias podem ser ocupadas por qualquer carta ou conjunto de cartas em ordem decrescente e com cores alternadas.</html>");
+   public void showHelp() {
+      JLabel bLabel = new JLabel("<html>Caracterï¿½sticas<br>"
+            + "Baralhos: 1;<br>"
+            + "Dificuldade: Fï¿½cil;<br>"
+            + "Tempo: Mï¿½dio;<br>"
+            + "Tipo: Habilidade;<br>"
+            + "Objetivo<br>"
+            + "O objetivo ï¿½ mover todas as cartas para as fundaï¿½ï¿½es em ordem crescente no naipe usando o menor nï¿½mero possï¿½vel de movimentos.<br>"
+            + "<br>"
+            + "O jogo<br>"
+            + "Fundaï¿½ï¿½es<br>"
+            + "Existem 4 fundaï¿½ï¿½es (canto superior direito);<br>"
+            + "As fundaï¿½ï¿½es aceitam as cartas em ordem crescente e com o mesmo naipe.<br>"
+            + "Cï¿½lulas<br>"
+            + "Sï¿½o 4 cï¿½lulas ao todo (canto superior esquerdo);<br>"
+            + "As cï¿½lulas vï¿½zias sï¿½o utilizadas como espaï¿½os temporï¿½rios para fazer movimentos de pilhas e para jogadas estratï¿½gicas.<br>"
+            + "Pilhas<br>"
+            + "O jogo tem 8 fundaï¿½ï¿½es (parte inferior);<br>"
+            + "As cartas nas pilhas devem ser organizadas em sequï¿½ncia decrescente e com cores alternadas;<br>"
+            + "Pode-se mover um conjunto de cartas desde que elas estejam em sequï¿½ncia e existam cï¿½lulas vazias e/ou espaï¿½os vazios para realizar o movimento;<br>"
+            + "Pilhas vazias podem ser ocupadas por qualquer carta ou conjunto de cartas em ordem decrescente e com cores alternadas.</html>");
       JPanel panel = new JPanel(new GridLayout(1, 0));
 
       panel.add(bLabel);
@@ -298,8 +279,7 @@ public class UIFreeCell extends JFrame {
    /**
     * Checks if any other instance is already running.
     */
-   private static void checkIfRunning()
-   {
+   private static void checkIfRunning() {
       try {
          socket = new ServerSocket(PORT, 0, InetAddress.getByAddress(new byte[] { 127, 0, 0, 1 }));
       } catch (BindException e) {
@@ -313,21 +293,18 @@ public class UIFreeCell extends JFrame {
       }
    }
 
-   private void checkAndLoadGame()
-   {
-      GameModel model = (GameModel)getObjectfromFile(STATE_FILE);
+   private void checkAndLoadGame() {
+      GameModel model = (GameModel) getObjectfromFile(STATE_FILE);
 
       if (model != null) {
          this.model = model;
          deleteFile(STATE_FILE);
-      }
-      else{
+      } else {
          this.model = new GameModel();
       }
    }
 
-   public void exit(boolean isGameComplete)
-   {
+   public void exit(boolean isGameComplete) {
       if (!isGameComplete) {
          saveObjecttoFile(model, STATE_FILE);
       }
@@ -335,8 +312,7 @@ public class UIFreeCell extends JFrame {
    }
 
    @Override
-   protected void finalize() throws Throwable
-   {
+   protected void finalize() throws Throwable {
       super.finalize();
       if (socket != null && !socket.isClosed()) {
          socket.close();

@@ -30,65 +30,57 @@ import org.pushingpixels.trident.interpolator.KeyValues;
  * @author Sateesh Gampala
  *
  */
-public class CardPile implements Iterable <Card>, Serializable {
+public class CardPile implements Iterable<Card>, Serializable {
    private static final long serialVersionUID = 3039382357994794527L;
-   public static final int TABLEAU_INCR_Y     = 18;
+   public static final int TABLEAU_INCR_Y = 18;
 
-   protected ArrayList <Card> cards = new ArrayList <Card>(); // All the cards.
-   protected Rectangle loc          = null;
+   protected ArrayList<Card> cards = new ArrayList<Card>(); // All the cards.
+   protected Rectangle loc = null;
 
    private transient boolean highlight = false;
    private Color backgroundColor;
    private float opacity = 0.7f;
    private transient Timeline blinkTimeline;
 
-   public CardPile()
-   {
+   public CardPile() {
       initTimeLines();
    }
 
-   private void initTimeLines()
-   {
+   private void initTimeLines() {
       blinkTimeline = new Timeline(this);
       blinkTimeline.setDuration(2000);
-      blinkTimeline.addCallback(new TimelineCallbackAdapter()
-      {
+      blinkTimeline.addCallback(new TimelineCallbackAdapter() {
          @Override
          public void onTimelineStateChanged(TimelineState oldState, TimelineState newState, float duration,
-                                            float timelinePos)
-         {
+               float timelinePos) {
             if (newState == TimelineState.DONE) {
                backgroundColor = Color.yellow;
-               highlight       = false;
+               highlight = false;
             }
          }
       });
    }
 
-   public void pushIgnoreRules(Card newCard)
-   {
+   public void pushIgnoreRules(Card newCard) {
       cards.add(newCard);
       if (loc != null) {
          newCard.setPosition(loc.x, loc.y);
       }
    }
 
-   public Card popIgnoreRules()
-   {
-      int  lastIndex = size() - 1;
-      Card crd       = cards.get(lastIndex);
+   public Card popIgnoreRules() {
+      int lastIndex = size() - 1;
+      Card crd = cards.get(lastIndex);
 
       cards.remove(lastIndex);
       return crd;
    }
 
-   public boolean push(Card newCard)
-   {
+   public boolean push(Card newCard) {
       if (isAllowedtoAdd(newCard)) {
          cards.add(newCard);
          return true;
-      }
-      else{
+      } else {
          return false;
       }
    }
@@ -99,8 +91,7 @@ public class CardPile implements Iterable <Card>, Serializable {
     * @param card
     * @return
     */
-   public boolean isAllowedtoAdd(Card card)
-   {
+   public boolean isAllowedtoAdd(Card card) {
       return true;
    }
 
@@ -109,8 +100,7 @@ public class CardPile implements Iterable <Card>, Serializable {
     *
     * @return no of card in the Pile
     */
-   public int size()
-   {
+   public int size() {
       return cards.size();
    }
 
@@ -119,8 +109,7 @@ public class CardPile implements Iterable <Card>, Serializable {
     *
     * @return removed card.
     */
-   public Card pop()
-   {
+   public Card pop() {
       if (!isRemovable()) {
          throw new UnsupportedOperationException("Illegal attempt to remove.");
       }
@@ -130,8 +119,7 @@ public class CardPile implements Iterable <Card>, Serializable {
    /**
     * Shuffles the cards
     */
-   public void shuffle()
-   {
+   public void shuffle() {
       Collections.shuffle(cards);
    }
 
@@ -140,17 +128,16 @@ public class CardPile implements Iterable <Card>, Serializable {
     *
     * @return card
     */
-   public Card peekTop()
-   {
+   public Card peekTop() {
       return cards.get(cards.size() - 1);
    }
 
    /*
     * (non-Javadoc)
+    * 
     * @see java.lang.Iterable#iterator()
     */
-   public Iterator <Card> iterator()
-   {
+   public Iterator<Card> iterator() {
       return cards.iterator();
    }
 
@@ -159,16 +146,14 @@ public class CardPile implements Iterable <Card>, Serializable {
     *
     * @return
     */
-   public ListIterator <Card> reverseIterator()
-   {
+   public ListIterator<Card> reverseIterator() {
       return cards.listIterator(cards.size());
    }
 
    /**
     * Clear all card from the pile.
     */
-   public void clear()
-   {
+   public void clear() {
       cards.clear();
    }
 
@@ -177,13 +162,11 @@ public class CardPile implements Iterable <Card>, Serializable {
     *
     * @return
     */
-   public Rectangle getPosition()
-   {
+   public Rectangle getPosition() {
       return this.loc;
    }
 
-   public void setPosition(Rectangle loc)
-   {
+   public void setPosition(Rectangle loc) {
       this.loc = loc;
       int i = 0;
       for (Card card : cards) {
@@ -191,8 +174,7 @@ public class CardPile implements Iterable <Card>, Serializable {
       }
    }
 
-   public void resetCardsPos()
-   {
+   public void resetCardsPos() {
       int i = 0;
 
       for (Card card : cards) {
@@ -205,34 +187,29 @@ public class CardPile implements Iterable <Card>, Serializable {
     *
     * @return
     */
-   public boolean isRemovable()
-   {
+   public boolean isRemovable() {
       return true;
    }
 
-   public boolean isMovable(Card card)
-   {
+   public boolean isMovable(Card card) {
       return true;
    }
 
-   public void setPosition(Card card, int newX, int newY)
-   {
+   public void setPosition(Card card, int newX, int newY) {
       for (int i = cards.indexOf(card); i >= 0 && i < cards.size(); i++) {
          cards.get(i).setPosition(newX, newY);
          newY += TABLEAU_INCR_Y;
       }
    }
 
-   public void drawDragged(Graphics g, Card card)
-   {
+   public void drawDragged(Graphics g, Card card) {
       for (int i = cards.indexOf(card); i >= 0 && i < cards.size(); i++) {
          cards.get(i).draw(g);
       }
    }
 
-   public ArrayList <Card> getCardListFrom(Card card)
-   {
-      ArrayList <Card> cardsList = new ArrayList <Card>();
+   public ArrayList<Card> getCardListFrom(Card card) {
+      ArrayList<Card> cardsList = new ArrayList<Card>();
 
       for (int i = cards.indexOf(card); i >= 0 && i < cards.size(); i++) {
          cardsList.add(cards.get(i));
@@ -240,9 +217,8 @@ public class CardPile implements Iterable <Card>, Serializable {
       return cardsList;
    }
 
-   public void draw(Graphics g)
-   {
-      Graphics2D g2 = (Graphics2D)g.create();
+   public void draw(Graphics g) {
+      Graphics2D g2 = (Graphics2D) g.create();
 
       if (highlight) {
          g2.setStroke(new BasicStroke(3));
@@ -255,47 +231,40 @@ public class CardPile implements Iterable <Card>, Serializable {
       g2.dispose();
    }
 
-   public void blink(int delay)
-   {
-      highlight       = true;
+   public void blink(int delay) {
+      highlight = true;
       backgroundColor = Color.red;
-      KeyValues <Float> xValues    = KeyValues.create(1f, 0.75f, 0.5f, 0.75f, 1f, 0.75f, 0.5f, 0.75f, 1f);
-      KeyTimes          alphaTimes = new KeyTimes(0f, 0.2f, 0.3f, 0.4f, 0.5f, 0.6f, 0.7f, 0.8f, 1f);
+      KeyValues<Float> xValues = KeyValues.create(1f, 0.75f, 0.5f, 0.75f, 1f, 0.75f, 0.5f, 0.75f, 1f);
+      KeyTimes alphaTimes = new KeyTimes(0f, 0.2f, 0.3f, 0.4f, 0.5f, 0.6f, 0.7f, 0.8f, 1f);
       try {
          blinkTimeline.setInitialDelay(delay);
       } catch (Exception ex) {
       }
-      blinkTimeline.addPropertyToInterpolate("opacity", new KeyFrames <Float>(xValues, alphaTimes));
+      blinkTimeline.addPropertyToInterpolate("opacity", new KeyFrames<Float>(xValues, alphaTimes));
       this.blinkTimeline.replay();
    }
 
-   public void stopBlink()
-   {
+   public void stopBlink() {
       blinkTimeline.end();
    }
 
-   public Color getBackgroundColor()
-   {
+   public Color getBackgroundColor() {
       return backgroundColor;
    }
 
-   public void setBackgroundColor(Color backgroundColor)
-   {
+   public void setBackgroundColor(Color backgroundColor) {
       this.backgroundColor = backgroundColor;
    }
 
-   public float getOpacity()
-   {
+   public float getOpacity() {
       return opacity;
    }
 
-   public void setOpacity(float opacity)
-   {
+   public void setOpacity(float opacity) {
       this.opacity = opacity;
    }
 
-   private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException
-   {
+   private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
       ois.defaultReadObject();
       initTimeLines();
    }

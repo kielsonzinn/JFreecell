@@ -26,30 +26,30 @@ import com.sri.jfreecell.firework.VolleyExplosion;
 
 /**
  * JPanel that displays cards, and manages the mouse.
- *       Cards are in three groups:
+ * Cards are in three groups:
  * Tableau. The initial cards are in a "tableau" consisting of
- *         8 piles, with 7 cards in the first four, and 6 in the second four.
- *         Cards can be removed from here.  Cards from other tableau piles
- *         or from free cells can be played on either an empty tableau pile,
- *         or on a card with a one higher face value and of the opposite color.
- * Free cells.  There are four "free cells" where single cards can
- *         be temporarily stored.
- * Foundation.  Card suits are built up here.  Only Aces can be
- *         placed on empty cells and successive cards must be one higher
- *         of the same suit.  No cards can be removed from the foundation.
+ * 8 piles, with 7 cards in the first four, and 6 in the second four.
+ * Cards can be removed from here. Cards from other tableau piles
+ * or from free cells can be played on either an empty tableau pile,
+ * or on a card with a one higher face value and of the opposite color.
+ * Free cells. There are four "free cells" where single cards can
+ * be temporarily stored.
+ * Foundation. Card suits are built up here. Only Aces can be
+ * placed on empty cells and successive cards must be one higher
+ * of the same suit. No cards can be removed from the foundation.
  *
- *       Communication with the model:
+ * Communication with the model:
  * The mouse can drag cards around. When a dragged card is
- *         dropped on a pile, the mouseReleased listener calls on the
- *         model to move the card from one pile to another.
- *         The "rules" implemented by the piles may prevent this, but
- *         that's not a problem, because it simply won't be moved, and
- *         when redrawn, will show up where it originally was.
+ * dropped on a pile, the mouseReleased listener calls on the
+ * model to move the card from one pile to another.
+ * The "rules" implemented by the piles may prevent this, but
+ * that's not a problem, because it simply won't be moved, and
+ * when redrawn, will show up where it originally was.
  * The other interaction between the model and this "mod" of the
- *         model is that this class implements the ChangeListener interface,
- *         and registers itself with the model so that it's called whenever
- *         the model changes.  The stateChanged method that is called when
- *         this happens only does a repaint and clear of the dragged card info.
+ * model is that this class implements the ChangeListener interface,
+ * and registers itself with the model so that it's called whenever
+ * the model changes. The stateChanged method that is called when
+ * this happens only does a repaint and clear of the dragged card info.
  *
  * @author Sateesh Gampala
  *
@@ -61,18 +61,18 @@ public class UICardPanel extends JComponent implements MouseListener, MouseMotio
    private static final int NUMBER_OF_PILES = 8;
 
    // ... Constants specifying position of display elements
-   private static final int GAP               = 10;
-   private static final int FOUNDATION_TOP    = GAP;
+   private static final int GAP = 10;
+   private static final int FOUNDATION_TOP = GAP;
    private static final int FOUNDATION_BOTTOM = FOUNDATION_TOP + Card.CARD_HEIGHT;
 
-   private static final int FREE_CELL_TOP    = GAP;
+   private static final int FREE_CELL_TOP = GAP;
    private static final int FREE_CELL_BOTTOM = FREE_CELL_TOP + Card.CARD_HEIGHT;
 
-   private static final int TABLEAU_TOP     = 2 * GAP + Math.max(FOUNDATION_BOTTOM, FREE_CELL_BOTTOM);
+   private static final int TABLEAU_TOP = 2 * GAP + Math.max(FOUNDATION_BOTTOM, FREE_CELL_BOTTOM);
    private static final int TABLEAU_START_X = GAP;
-   private static final int TABLEAU_INCR_X  = Card.CARD_WIDTH + GAP;
+   private static final int TABLEAU_INCR_X = Card.CARD_WIDTH + GAP;
 
-   public static final int DISPLAY_WIDTH  = (NUMBER_OF_PILES + 1) * TABLEAU_INCR_X;
+   public static final int DISPLAY_WIDTH = (NUMBER_OF_PILES + 1) * TABLEAU_INCR_X;
    public static final int DISPLAY_HEIGHT = TABLEAU_TOP + 3 * Card.CARD_HEIGHT + GAP;
 
    private static final Color BACKGROUND_COLOR = new Color(0, 110, 135);
@@ -80,23 +80,22 @@ public class UICardPanel extends JComponent implements MouseListener, MouseMotio
    // fields
 
    /** Position in image of mouse press to make dragging look better. */
-   private int dragFromX = 0;  // Displacement inside image of mouse press
+   private int dragFromX = 0; // Displacement inside image of mouse press
    private int dragFromY = 0;
 
    // ... Selected card and its pile for dragging purposes.
-   private Card draggedCard         = null; // Current draggable card
+   private Card draggedCard = null; // Current draggable card
    private CardPile draggedFromPile = null; // Which pile it came from
 
-   private Card highlightedCard     = null;
+   private Card highlightedCard = null;
    private CardPile highlightedPile = null;
 
    private GameModel model;
-   private Set <VolleyExplosion> volleys;
-   private Map <VolleyExplosion, TimelineScenario> volleyScenarios;
+   private Set<VolleyExplosion> volleys;
+   private Map<VolleyExplosion, TimelineScenario> volleyScenarios;
 
    /** Constructor sets size, colors, and adds mouse listeners. */
-   public UICardPanel(GameModel mdl)
-   {
+   public UICardPanel(GameModel mdl) {
       model = mdl;
       setPreferredSize(new Dimension(DISPLAY_WIDTH, DISPLAY_HEIGHT));
       setBackground(Color.green);
@@ -106,7 +105,7 @@ public class UICardPanel extends JComponent implements MouseListener, MouseMotio
       this.addMouseMotionListener(this);
 
       // ... Set location of all piles in model
-      int x = TABLEAU_START_X;   // Initial x position.
+      int x = TABLEAU_START_X; // Initial x position.
       for (int pileNum = 0; pileNum < NUMBER_OF_PILES; pileNum++) {
          CardPile p;
          if (pileNum < 4) {
@@ -114,8 +113,7 @@ public class UICardPanel extends JComponent implements MouseListener, MouseMotio
             p.setPosition(new Rectangle(x, FREE_CELL_TOP, Card.CARD_WIDTH, Card.CARD_HEIGHT));
             p = model.getFoundationPile(pileNum);
             p.setPosition(new Rectangle(x + (TABLEAU_INCR_X * 5), FOUNDATION_TOP, Card.CARD_WIDTH, Card.CARD_HEIGHT));
-         }
-         else{
+         } else {
          }
 
          p = model.getTableauPile(pileNum);
@@ -130,20 +128,18 @@ public class UICardPanel extends JComponent implements MouseListener, MouseMotio
 
    /** Draw the cards. */
    @Override
-   public void paintComponent(Graphics g)
-   {
+   public void paintComponent(Graphics g) {
       // ... Paint background.
-      int width  = getWidth();
+      int width = getWidth();
       int height = getHeight();
 
       if (model.showBlackScreen) {
          g.setColor(Color.BLACK);
-      }
-      else{
+      } else {
          g.setColor(BACKGROUND_COLOR);
       }
       g.fillRect(0, 0, width, height); // , because of the override
-      g.setColor(Color.BLACK);         // Restore pen color.
+      g.setColor(Color.BLACK); // Restore pen color.
 
       if (!model.showBlackScreen) {
          // ... Display each pile.
@@ -160,8 +156,7 @@ public class UICardPanel extends JComponent implements MouseListener, MouseMotio
       if (model.showBlackScreen) {
          if (volleys == null) {
             prepareFireWork();
-         }
-         else{
+         } else {
             synchronized (volleys) {
                for (TimelineScenario scenario : volleyScenarios.values()) {
                   scenario.resume();
@@ -174,8 +169,7 @@ public class UICardPanel extends JComponent implements MouseListener, MouseMotio
                exp.paint(g);
             }
          }
-      }
-      else{
+      } else {
          if (volleys != null) {
             synchronized (volleys) {
                for (TimelineScenario scenario : volleyScenarios.values()) {
@@ -192,8 +186,7 @@ public class UICardPanel extends JComponent implements MouseListener, MouseMotio
       }
    }
 
-   private void _drawPile(Graphics g, CardPile pile, boolean topOnly)
-   {
+   private void _drawPile(Graphics g, CardPile pile, boolean topOnly) {
       pile.draw(g);
       if (pile.size() > 0) {
          if (topOnly) {
@@ -202,8 +195,7 @@ public class UICardPanel extends JComponent implements MouseListener, MouseMotio
                // ... Draw only non-dragged card.
                card.draw(g);
             }
-         }
-         else{
+         } else {
             // ... Draw all cards except dragged card.
             for (Card card : pile) {
                if (card == draggedCard) {
@@ -215,27 +207,24 @@ public class UICardPanel extends JComponent implements MouseListener, MouseMotio
       }
    }
 
-   public void mouseMoved(MouseEvent e)
-   {
+   public void mouseMoved(MouseEvent e) {
       _findFocusCard(e);
    }
 
-   public void mousePressed(MouseEvent e)
-   {
+   public void mousePressed(MouseEvent e) {
       _clearDrag();
       if (!_findFocusCard(e)) {
          return;
       }
       if (highlightedPile.isMovable(highlightedCard)) {
-         draggedCard     = highlightedCard;
+         draggedCard = highlightedCard;
          draggedFromPile = highlightedPile;
-         dragFromX       = e.getX() - highlightedCard.getX();
-         dragFromY       = e.getY() - highlightedCard.getY();
+         dragFromX = e.getX() - highlightedCard.getX();
+         dragFromY = e.getY() - highlightedCard.getY();
       }
    }
 
-   public void mouseDragged(MouseEvent e)
-   {
+   public void mouseDragged(MouseEvent e) {
       if (draggedCard == null) {
          return;
       }
@@ -253,11 +242,10 @@ public class UICardPanel extends JComponent implements MouseListener, MouseMotio
       draggedFromPile.setPosition(draggedCard, newX, newY);
    }
 
-   public void mouseReleased(MouseEvent e)
-   {
+   public void mouseReleased(MouseEvent e) {
       if (draggedCard != null && draggedFromPile != null) {
-         boolean  isCardMoved = false;
-         CardPile targetPile  = _findPileAt(e.getX(), e.getY());
+         boolean isCardMoved = false;
+         CardPile targetPile = _findPileAt(e.getX(), e.getY());
          if (targetPile != null) {
             isCardMoved = model.moveFromPileToPile(draggedCard, draggedFromPile, targetPile);
             if (isCardMoved) {
@@ -273,8 +261,7 @@ public class UICardPanel extends JComponent implements MouseListener, MouseMotio
       }
    }
 
-   public void mouseClicked(MouseEvent e)
-   {
+   public void mouseClicked(MouseEvent e) {
       if (!_findFocusCard(e)) {
          return;
       }
@@ -294,8 +281,7 @@ public class UICardPanel extends JComponent implements MouseListener, MouseMotio
       }
    }
 
-   private boolean _findFocusCard(MouseEvent e)
-   {
+   private boolean _findFocusCard(MouseEvent e) {
       int x = e.getX(), y = e.getY();
 
       if (highlightedCard != null && highlightedPile != null && highlightedPile.size() > 0) {
@@ -303,12 +289,11 @@ public class UICardPanel extends JComponent implements MouseListener, MouseMotio
          // Check if focus is in same card
          if (highlightedCard.isVisibleInside(x, y, isTopCard)) {
             highlightedCard.highlight(true);
-            return true;    // Same card.
-         }
-         else{
+            return true; // Same card.
+         } else {
             highlightedCard.highlight(false);
             // Check if focus is in same pile
-            int       x1  = highlightedCard.getX();
+            int x1 = highlightedCard.getX();
             Rectangle loc = highlightedPile.getPosition();
             if ((x >= x1 && x < x1 + Card.CARD_WIDTH) && (y >= loc.y && y < loc.height)) {
                if (_findInPile(highlightedPile, x, y)) {
@@ -329,8 +314,7 @@ public class UICardPanel extends JComponent implements MouseListener, MouseMotio
       return false;
    }
 
-   private boolean _findInPile(CardPile pile, int x, int y)
-   {
+   private boolean _findInPile(CardPile pile, int x, int y) {
       Card topCard = pile.peekTop();
 
       for (Card card : pile) {
@@ -344,8 +328,7 @@ public class UICardPanel extends JComponent implements MouseListener, MouseMotio
       return false;
    }
 
-   private void _clearHighlight()
-   {
+   private void _clearHighlight() {
       if (highlightedCard != null) {
          highlightedCard.highlight(false);
       }
@@ -353,14 +336,12 @@ public class UICardPanel extends JComponent implements MouseListener, MouseMotio
       highlightedPile = null;
    }
 
-   private void _clearDrag()
-   {
-      draggedCard     = null;
+   private void _clearDrag() {
+      draggedCard = null;
       draggedFromPile = null;
    }
 
-   private CardPile _findPileAt(int x, int y)
-   {
+   private CardPile _findPileAt(int x, int y) {
       for (CardPile pile : model) {
          if (pile.getPosition().contains(x, y)) {
             return pile;
@@ -370,27 +351,22 @@ public class UICardPanel extends JComponent implements MouseListener, MouseMotio
    }
 
    // Ignore other mouse events.
-   public void mouseEntered(MouseEvent e)
-   {
+   public void mouseEntered(MouseEvent e) {
    }
 
-   public void mouseExited(MouseEvent e)
-   {
+   public void mouseExited(MouseEvent e) {
    }
 
-   private void prepareFireWork()
-   {
-      this.volleys         = new HashSet <VolleyExplosion>();
-      this.volleyScenarios = new HashMap <VolleyExplosion, TimelineScenario>();
+   private void prepareFireWork() {
+      this.volleys = new HashSet<VolleyExplosion>();
+      this.volleyScenarios = new HashMap<VolleyExplosion, TimelineScenario>();
 
       Timeline repaint = new SwingRepaintTimeline(this);
       repaint.playLoop(RepeatBehavior.LOOP);
 
-      new Thread()
-      {
+      new Thread() {
          @Override
-         public void run()
-         {
+         public void run() {
             while (true) {
                addExplosions(10);
             }
@@ -398,16 +374,15 @@ public class UICardPanel extends JComponent implements MouseListener, MouseMotio
       }.start();
    }
 
-   private void addExplosions(int count)
-   {
+   private void addExplosions(int count) {
       final CountDownLatch latch = new CountDownLatch(count);
 
       Random randomizer = new Random();
 
       for (int i = 0; i < count; i++) {
-         int   r     = randomizer.nextInt(255);
-         int   g     = 100 + randomizer.nextInt(155);
-         int   b     = 50 + randomizer.nextInt(205);
+         int r = randomizer.nextInt(255);
+         int g = 100 + randomizer.nextInt(155);
+         int b = 50 + randomizer.nextInt(205);
          Color color = new Color(r, g, b);
 
          int x = 60 + randomizer.nextInt(getWidth() - 120);
@@ -417,11 +392,9 @@ public class UICardPanel extends JComponent implements MouseListener, MouseMotio
          synchronized (volleys) {
             volleys.add(exp);
             TimelineScenario scenario = exp.getExplosionScenario();
-            scenario.addCallback(new TimelineScenarioCallback()
-            {
+            scenario.addCallback(new TimelineScenarioCallback() {
                @Override
-               public void onTimelineScenarioDone()
-               {
+               public void onTimelineScenarioDone() {
                   synchronized (volleys) {
                      volleys.remove(exp);
                      volleyScenarios.remove(exp);

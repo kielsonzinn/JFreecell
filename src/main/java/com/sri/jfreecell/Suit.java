@@ -14,24 +14,20 @@ enum Suit {
    private final Color color;
    private final char code;
 
-   Suit(char code, Color color)
-   {
-      this.code  = code;
+   Suit(char code, Color color) {
+      this.code = code;
       this.color = color;
    }
 
-   public Color getColor()
-   {
+   public Color getColor() {
       return this.color;
    }
 
-   public char getCode()
-   {
+   public char getCode() {
       return this.code;
    }
 
-   public static Suit fromCode(char code)
-   {
+   public static Suit fromCode(char code) {
       for (Suit suit : Suit.values()) {
          if (suit.code == code) {
             return suit;

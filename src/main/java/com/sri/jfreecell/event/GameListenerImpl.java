@@ -22,44 +22,40 @@ import com.sri.jfreecell.UIFreeCell;
 public class GameListenerImpl implements GameListener {
    private UIFreeCell frame;
 
-   public GameListenerImpl(UIFreeCell frame)
-   {
+   public GameListenerImpl(UIFreeCell frame) {
       this.frame = frame;
    }
 
    @Override
-   public void onEvent(GameEvent ge)
-   {
+   public void onEvent(GameEvent ge) {
       switch (ge.getEvent()) {
-      case MOVE:
-         onMove(ge);
-         break;
+         case MOVE:
+            onMove(ge);
+            break;
 
-      case COMPLETE:
-         gameComplete();
-         break;
+         case COMPLETE:
+            gameComplete();
+            break;
 
-      case NOMOVESLEFT:
-         noMovesLeft();
-         break;
+         case NOMOVESLEFT:
+            noMovesLeft();
+            break;
 
-      default:
-         break;
+         default:
+            break;
       }
    }
 
-   private void onMove(GameEvent ge)
-   {
-      frame.updateCardCount((int)ge.getValue());
+   private void onMove(GameEvent ge) {
+      frame.updateCardCount((int) ge.getValue());
       frame.repaint();
    }
 
-   private void gameComplete()
-   {
-      JLabel    aLabel = new JLabel("Congratulations, You Win!");
-      JLabel    bLabel = new JLabel("Do you want to play again?");
+   private void gameComplete() {
+      JLabel aLabel = new JLabel("Congratulations, You Win!");
+      JLabel bLabel = new JLabel("Do you want to play again?");
       JCheckBox cCheck = new JCheckBox("Select game");
-      JPanel    panel  = new JPanel(new GridLayout(3, 1));
+      JPanel panel = new JPanel(new GridLayout(3, 1));
 
       panel.add(aLabel);
       panel.add(bLabel);
@@ -69,38 +65,36 @@ public class GameListenerImpl implements GameListener {
       if (input == 0) {
          if (cCheck.isSelected()) {
             frame.selectGame();
-         }
-         else{
+         } else {
             frame.loadRandGame();
          }
-      }
-      else{
+      } else {
          frame.exit(true);
       }
    }
 
-   private void noMovesLeft()
-   {
+   private void noMovesLeft() {
       String[] buttons = { "Restart", "New game", "Undo Last Move" };
-      int      input   = showOptionDialog(frame, "No more moves left !!!", "No Moves", YES_NO_OPTION, ERROR_MESSAGE, null, buttons,
-                                          buttons[0]);
+      int input = showOptionDialog(frame, "No more moves left !!!", "No Moves", YES_NO_OPTION, ERROR_MESSAGE, null,
+            buttons,
+            buttons[0]);
 
       switch (input) {
-      case 0:
-         frame.model.restartGame();
-         break;
+         case 0:
+            frame.model.restartGame();
+            break;
 
-      case 1:
-         frame.loadRandGame();
-         break;
+         case 1:
+            frame.loadRandGame();
+            break;
 
-      case 2:
-         frame.model.undoLastStep();
-         break;
+         case 2:
+            frame.model.undoLastStep();
+            break;
 
-      default:
-         frame.loadRandGame();
-         break;
+         default:
+            frame.loadRandGame();
+            break;
       }
    }
 }

@@ -22,38 +22,32 @@ public class SingleExplosion {
    private float opacity;
    private Color color;
 
-   public SingleExplosion(Color color, float x, float y, float radius)
-   {
-      this.color   = color;
-      this.x       = x;
-      this.y       = y;
-      this.radius  = radius;
+   public SingleExplosion(Color color, float x, float y, float radius) {
+      this.color = color;
+      this.x = x;
+      this.y = y;
+      this.radius = radius;
       this.opacity = 1.0f;
    }
 
-   public void setX(float x)
-   {
+   public void setX(float x) {
       this.x = x;
    }
 
-   public void setY(float y)
-   {
+   public void setY(float y) {
       this.y = y;
    }
 
-   public void setRadius(float radius)
-   {
+   public void setRadius(float radius) {
       this.radius = radius;
    }
 
-   public void setOpacity(float opacity)
-   {
+   public void setOpacity(float opacity) {
       this.opacity = opacity;
    }
 
-   public void paint(Graphics g)
-   {
-      Graphics2D g2d = (Graphics2D)g.create();
+   public void paint(Graphics g) {
+      Graphics2D g2d = (Graphics2D) g.create();
 
       g2d.setRenderingHint(KEY_ANTIALIASING, VALUE_ANTIALIAS_ON);
       g2d.setComposite(AlphaComposite.SrcOver.derive(this.opacity));

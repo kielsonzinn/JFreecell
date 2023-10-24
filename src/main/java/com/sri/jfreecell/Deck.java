@@ -12,8 +12,7 @@ public class Deck extends CardPile {
    /**
     * Creates a new instance of Deck
     */
-   public Deck()
-   {
+   public Deck() {
       for (Suit s : Suit.values()) {
          for (Face f : Face.values()) {
             Card c = new Card(f, s);
@@ -24,8 +23,7 @@ public class Deck extends CardPile {
       shuffle();
    }
 
-   public Deck(CardPile cp)
-   {
+   public Deck(CardPile cp) {
       for (Card c : cp) {
          this.push(c);
       }

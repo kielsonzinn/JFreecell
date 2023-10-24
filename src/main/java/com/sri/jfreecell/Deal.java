@@ -12,17 +12,16 @@ import java.util.StringTokenizer;
  */
 public class Deal {
    private static final ClassLoader CLSLDR = Deal.class.getClassLoader();
-   private static final String ranks       = ".A23456789TJQK";
-   private static final String suits       = "CDHS";
+   private static final String ranks = ".A23456789TJQK";
+   private static final String suits = "CDHS";
    private static InputStream stream;
 
-   private static CardPile initialize(int[] deals)
-   {
+   private static CardPile initialize(int[] deals) {
       // Gives cards AC - KC, AD - KD, AH - KH, AS - KS
       short[] cards = new short[52];
 
       for (short i = 0; i < 52; i++) {
-         cards[i] = (short)(1 + i);
+         cards[i] = (short) (1 + i);
       }
 
       // now process the deal number
@@ -53,8 +52,7 @@ public class Deal {
       return cardList;
    }
 
-   public static final CardPile initialize(int dealNumber) throws IOException
-   {
+   public static final CardPile initialize(int dealNumber) throws IOException {
       stream = CLSLDR.getResourceAsStream("32000.txt");
       Scanner sc = new Scanner(stream);
       try {
@@ -66,12 +64,12 @@ public class Deal {
 
             StringTokenizer st = new StringTokenizer(line, "., ");
             // get task no.
-            int val = Integer.valueOf(st.nextToken());     // bypass number
+            int val = Integer.valueOf(st.nextToken()); // bypass number
             assert (val == i);
 
             // construct deal "shuffle" sequence
             int[] deals = new int[52];
-            int   idx   = 0;
+            int idx = 0;
             while (st.hasMoreTokens()) {
                deals[idx++] = Integer.valueOf(st.nextToken());
             }
@@ -88,8 +86,7 @@ public class Deal {
       }
    }
 
-   private static Card cardInfo(int card)
-   {
+   private static Card cardInfo(int card) {
       int rs = 1 + ((card - 1) >> 2);
       int ss = ((card - 1) % 4);
 
@@ -107,8 +104,7 @@ public class Deal {
    }
 
    @Override
-   protected void finalize() throws Throwable
-   {
+   protected void finalize() throws Throwable {
       super.finalize();
    }
 }

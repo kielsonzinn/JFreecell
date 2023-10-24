@@ -14,20 +14,17 @@ public class GameEvent extends EventObject {
    private GameEvents event;
    private Object value;
 
-   public GameEvent(Object source, GameEvents event, Object value)
-   {
+   public GameEvent(Object source, GameEvents event, Object value) {
       super(source);
       this.event = event;
       this.value = value;
    }
 
-   public GameEvents getEvent()
-   {
+   public GameEvents getEvent() {
       return event;
    }
 
-   public Object getValue()
-   {
+   public Object getValue() {
       return this.value;
    }
 }

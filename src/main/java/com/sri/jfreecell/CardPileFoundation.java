@@ -6,10 +6,9 @@ import java.awt.Rectangle;
 
 import javax.swing.JLabel;
 
-
-
 /**
- * Represents a Foundation card pile. This is a non removable pile. Card will be collected as per deck order.
+ * Represents a Foundation card pile. This is a non removable pile. Card will be
+ * collected as per deck order.
  *
  * @author Sateesh Gampala
  *
@@ -17,11 +16,8 @@ import javax.swing.JLabel;
 public class CardPileFoundation extends CardPile {
    private static final long serialVersionUID = -5609208267476759214L;
 
-
-
    @Override
-   public boolean isAllowedtoAdd(Card card)
-   {
+   public boolean isAllowedtoAdd(Card card) {
       // Accept Ace card if pile is empty.
       if ((this.size() == 0) && (card.getFace() == Face.ACE)) {
          return true;
@@ -37,20 +33,17 @@ public class CardPileFoundation extends CardPile {
    }
 
    @Override
-   public boolean isRemovable()
-   {
+   public boolean isRemovable() {
       return false;
    }
 
    @Override
-   public boolean isMovable(Card card)
-   {
+   public boolean isMovable(Card card) {
       return false;
    }
 
    @Override
-   public void setPosition(Rectangle loc)
-   {
+   public void setPosition(Rectangle loc) {
       this.loc = loc;
 
       for (Card card : cards) {
@@ -59,8 +52,7 @@ public class CardPileFoundation extends CardPile {
    }
 
    @Override
-   public void resetCardsPos()
-   {
+   public void resetCardsPos() {
       for (Card card : cards) {
          card.setPosition(this.loc.x, this.loc.y);
       }

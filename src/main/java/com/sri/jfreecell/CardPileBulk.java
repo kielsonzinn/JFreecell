@@ -9,9 +9,8 @@ public class CardPileBulk extends CardPile {
    public CardPile pile;
    public int count;
 
-   public CardPileBulk(CardPile pile, int count)
-   {
-      this.pile  = pile;
+   public CardPileBulk(CardPile pile, int count) {
+      this.pile = pile;
       this.count = count;
    }
 }

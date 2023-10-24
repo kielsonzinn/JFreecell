@@ -8,12 +8,11 @@ import java.io.ObjectOutputStream;
 
 public class FileUtil {
    public static final String STATE_FILE = "state.ser";
-   public static final String STAT_FILE  = "usrstat.ser";
+   public static final String STAT_FILE = "usrstat.ser";
 
-   public static String getAppDirectory()
-   {
+   public static String getAppDirectory() {
       String userDir = System.getProperty("user.home");
-      String appDir  = userDir.concat(File.separator).concat(".jfreecell").concat(File.separator);
+      String appDir = userDir.concat(File.separator).concat(".jfreecell").concat(File.separator);
 
       File directory = new File(appDir);
 
@@ -23,8 +22,7 @@ public class FileUtil {
       return appDir;
    }
 
-   public static void saveObjecttoFile(Object obj, String fileName)
-   {
+   public static void saveObjecttoFile(Object obj, String fileName) {
       String fullpath = getAppDirectory().concat(fileName);
 
       try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fullpath))) {
@@ -36,8 +34,7 @@ public class FileUtil {
       }
    }
 
-   public static Object getObjectfromFile(String fileName)
-   {
+   public static Object getObjectfromFile(String fileName) {
       String fullpath = getAppDirectory().concat(fileName);
 
       try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fullpath))) {
@@ -49,16 +46,14 @@ public class FileUtil {
       return null;
    }
 
-   public static void deleteFile(String fileName)
-   {
+   public static void deleteFile(String fileName) {
       String fullpath = getAppDirectory().concat(fileName);
 
       try {
          File file = new File(fullpath);
          if (file.delete()) {
             System.out.println(file.getName() + " is deleted!");
-         }
-         else{
+         } else {
             System.out.println("Delete operation is failed.");
          }
       } catch (Exception e) {
