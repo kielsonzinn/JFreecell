@@ -1,12 +1,13 @@
 package com.sri.jfreecell.event;
 
 /**
- * Game Listener interface
- *
+ * Game Listener interface 
+ * 
  * @author Sateesh Gampala
+ *
  */
 public interface GameListener {
 
-    public void onEvent( GameEvent ge );
+    public void onEvent(GameEvent ge);
 
 }
