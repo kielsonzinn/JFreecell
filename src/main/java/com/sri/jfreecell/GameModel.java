@@ -24,13 +24,12 @@ import com.sri.jfreecell.event.GameListener;
 
 /**
  * Model for the Game.
- * 
- * @author Sateesh Gampala
  *
+ * @author Sateesh Gampala
  */
 public class GameModel implements Iterable<CardPile>, Serializable {
 
-    private static final long serialVersionUID = -6674914038491480772L;
+    private static final long serialVersionUID = - 6674914038491480772L;
 
     private CardPile[] freeCells;
     private CardPile[] tableau;
@@ -64,20 +63,20 @@ public class GameModel implements Iterable<CardPile>, Serializable {
         foundation = new CardPile[4];
 
         // Create empty piles to hold "foundation"
-        for (int pile = 0; pile < foundation.length; pile++) {
+        for ( int pile = 0; pile < foundation.length; pile++ ) {
             foundation[pile] = new CardPileFoundation();
-            allPiles.add(foundation[pile]);
+            allPiles.add( foundation[pile] );
         }
         // Create empty piles of Free Cells.
-        for (int pile = 0; pile < freeCells.length; pile++) {
+        for ( int pile = 0; pile < freeCells.length; pile++ ) {
             freeCells[pile] = new CardPileFreeCell();
-            allPiles.add(freeCells[pile]);
+            allPiles.add( freeCells[pile] );
         }
         // Arrange the cards into piles.
-        for (int pile = 0; pile < tableau.length; pile++) {
+        for ( int pile = 0; pile < tableau.length; pile++ ) {
             tableau[pile] = new CardPileTableau();
             tableauBkp[pile] = new CardPileTableau();
-            allPiles.add(tableau[pile]);
+            allPiles.add( tableau[pile] );
         }
 
         gameNo = getRandGameNo();
@@ -85,10 +84,10 @@ public class GameModel implements Iterable<CardPile>, Serializable {
     }
 
     private int getRandGameNo() {
-        return ThreadLocalRandom.current().nextInt(1, 32000 + 1);
+        return ThreadLocalRandom.current().nextInt( 1, 32000 + 1 );
     }
 
-    public void loadGame(int game) {
+    public void loadGame( int game ) {
         gameNo = game;
         startNewGame();
     }
@@ -102,33 +101,33 @@ public class GameModel implements Iterable<CardPile>, Serializable {
         CardPile pile;
         Deck deck;
         try {
-            pile = Deal.initialize(gameNo);
-            deck = new Deck(pile);
-        } catch (Exception e) {
+            pile = Deal.initialize( gameNo );
+            deck = new Deck( pile );
+        } catch ( Exception e ) {
             e.printStackTrace();
-            System.err.println("Game not Found: " + gameNo);
+            System.err.println( "Game not Found: " + gameNo );
             deck = new Deck();
         }
 
         // ... Empty all the piles.
-        for (CardPile p : allPiles) {
+        for ( CardPile p : allPiles ) {
             p.clear();
         }
 
-        for (int i = 0; i < tableauBkp.length; i++) {
+        for ( int i = 0; i < tableauBkp.length; i++ ) {
             tableauBkp[i].clear();
         }
 
         // ... Deal the cards into the piles.
         int whichPile = 0;
-        for (Card crd : deck) {
-            tableau[whichPile].pushIgnoreRules(crd);
-            tableauBkp[whichPile].pushIgnoreRules(crd);
-            whichPile = (whichPile + 1) % tableau.length;
+        for ( Card crd : deck ) {
+            tableau[whichPile].pushIgnoreRules( crd );
+            tableauBkp[whichPile].pushIgnoreRules( crd );
+            whichPile = ( whichPile + 1 ) % tableau.length;
         }
 
-        for (int i = 0; i < tableau.length; i++) {
-            ((CardPileTableau) tableau[i]).updateCascades();
+        for ( int i = 0; i < tableau.length; i++ ) {
+            ( ( CardPileTableau ) tableau[i] ).updateCascades();
         }
 
         state = NEW;
@@ -138,15 +137,15 @@ public class GameModel implements Iterable<CardPile>, Serializable {
     }
 
     public void restartGame() {
-        for (CardPile p : allPiles) {
+        for ( CardPile p : allPiles ) {
             p.clear();
         }
 
-        for (int i = 0; i < tableauBkp.length; i++) {
-            for (Card card : tableauBkp[i]) {
-                tableau[i].pushIgnoreRules(card);
+        for ( int i = 0; i < tableauBkp.length; i++ ) {
+            for ( Card card : tableauBkp[i] ) {
+                tableau[i].pushIgnoreRules( card );
             }
-            ((CardPileTableau) tableau[i]).updateCascades();
+            ( ( CardPileTableau ) tableau[i] ).updateCascades();
         }
 
         state = NEW;
@@ -155,15 +154,15 @@ public class GameModel implements Iterable<CardPile>, Serializable {
         notifyChanges();
     }
 
-    public boolean moveFromPileToPile(Card card, CardPile source, CardPile target) {
-        if (card.equals(source.peekTop())) {
-            return moveCard(source, target);
+    public boolean moveFromPileToPile( Card card, CardPile source, CardPile target ) {
+        if ( card.equals( source.peekTop() ) ) {
+            return moveCard( source, target );
         } else {
-            if (target.isAllowedtoAdd(card)) {
-                ArrayList<Card> cards = source.getCardListFrom(card);
-                int moves = getMaxNoOfCardsMovable(target.size() == 0);
-                if (cards.size() <= moves) {
-                    moveCards(cards, source, target);
+            if ( target.isAllowedtoAdd( card ) ) {
+                ArrayList<Card> cards = source.getCardListFrom( card );
+                int moves = getMaxNoOfCardsMovable( target.size() == 0 );
+                if ( cards.size() <= moves ) {
+                    moveCards( cards, source, target );
                     return true;
                 }
             }
@@ -177,7 +176,7 @@ public class GameModel implements Iterable<CardPile>, Serializable {
      */
     public void checkForAutoMoves() {
         noOfAutoMoves = 0;
-        if (!autoComplete)
+        if ( ! autoComplete )
             return;
 
         boolean moveHappened;
@@ -186,45 +185,45 @@ public class GameModel implements Iterable<CardPile>, Serializable {
         Card c;
         do {
             moveHappened = false;
-            for (CardPile pile : getTableauPiles()) {
-                if (pile.size() == 0)
+            for ( CardPile pile : getTableauPiles() ) {
+                if ( pile.size() == 0 )
                     continue;
                 c = pile.peekTop();
                 ord = c.getFace().ordinal();
-                if (c.getSuit().getColor().equals(Color.RED)) {
-                    if (ord > minval[0] && ord > 1)
+                if ( c.getSuit().getColor().equals( Color.RED ) ) {
+                    if ( ord > minval[0] && ord > 1 )
                         continue;
                 } else {
-                    if (ord > minval[1] && ord > 1)
+                    if ( ord > minval[1] && ord > 1 )
                         continue;
                 }
-                if (moveToFoundationPile(pile)) {
+                if ( moveToFoundationPile( pile ) ) {
                     minval = getMinEligibleOrdinals();
                     moveHappened = true;
                     noOfAutoMoves++;
                 }
             }
 
-            for (CardPile pile : getFreeCellPiles()) {
-                if (pile.size() == 0)
+            for ( CardPile pile : getFreeCellPiles() ) {
+                if ( pile.size() == 0 )
                     continue;
                 c = pile.peekTop();
                 ord = c.getFace().ordinal();
-                if (c.getSuit().getColor().equals(Color.RED)) {
-                    if (ord > minval[0] && ord > 1)
+                if ( c.getSuit().getColor().equals( Color.RED ) ) {
+                    if ( ord > minval[0] && ord > 1 )
                         continue;
                 } else {
-                    if (ord > minval[1] && ord > 1)
+                    if ( ord > minval[1] && ord > 1 )
                         continue;
                 }
-                if (moveToFoundationPile(pile)) {
+                if ( moveToFoundationPile( pile ) ) {
                     minval = getMinEligibleOrdinals();
                     moveHappened = true;
                     noOfAutoMoves++;
                 }
             }
-        } while (moveHappened);
-        if (noOfAutoMoves > 0) {
+        } while ( moveHappened );
+        if ( noOfAutoMoves > 0 ) {
             notifyChanges();
             validate();
         }
@@ -235,24 +234,24 @@ public class GameModel implements Iterable<CardPile>, Serializable {
      * Returns minimum valued card (Black & Red) that can be moved automatically
      * to Foundation pile. E.g., If we need to move 6 of Spade (Black) then
      * minimum both 5 Diamond and 5 Heart (Red) should be on Foundation Pile.
-     * 
+     *
      * @return Array of Black and Red ordinal
      */
     private int[] getMinEligibleOrdinals() {
-        int blk = -1;
-        int red = -1;
+        int blk = - 1;
+        int red = - 1;
         int ord;
-        for (CardPile pile : getFoundationPiles()) {
-            if (pile.size() == 0)
+        for ( CardPile pile : getFoundationPiles() ) {
+            if ( pile.size() == 0 )
                 continue;
             Card c = pile.peekTop();
             ord = c.getFace().ordinal();
-            if (c.getSuit().getColor().equals(Color.BLACK)) {
-                if (ord < blk || blk == -1) {
+            if ( c.getSuit().getColor().equals( Color.BLACK ) ) {
+                if ( ord < blk || blk == - 1 ) {
                     blk = ord;
                 }
             } else {
-                if (ord < red || red == -1) {
+                if ( ord < red || red == - 1 ) {
                     red = ord;
                 }
             }
@@ -262,58 +261,58 @@ public class GameModel implements Iterable<CardPile>, Serializable {
         return min;
     }
 
-    public boolean moveToFoundationPile(CardPile source) {
-        if (source.size() == 0)
+    public boolean moveToFoundationPile( CardPile source ) {
+        if ( source.size() == 0 )
             return false;
-        CardPile target = findEligibleCellInFoundationPile(source.peekTop());
-        if (target == null)
+        CardPile target = findEligibleCellInFoundationPile( source.peekTop() );
+        if ( target == null )
             return false;
-        return moveCard(source, target);
+        return moveCard( source, target );
     }
 
-    private CardPile findEligibleCellInFoundationPile(Card card) {
-        for (CardPile pile : getFoundationPiles()) {
-            if (pile.isAllowedtoAdd(card)) {
+    private CardPile findEligibleCellInFoundationPile( Card card ) {
+        for ( CardPile pile : getFoundationPiles() ) {
+            if ( pile.isAllowedtoAdd( card ) ) {
                 return pile;
             }
         }
         return null;
     }
 
-    public boolean moveToFreeCellPile(CardPile source) {
+    public boolean moveToFreeCellPile( CardPile source ) {
         CardPile target = findEmptyCellInFreeCellPile();
-        if (target == null)
+        if ( target == null )
             return false;
-        return moveCard(source, target);
+        return moveCard( source, target );
     }
 
     private CardPile findEmptyCellInFreeCellPile() {
-        for (CardPile pile : getFreeCellPiles()) {
-            if (pile.size() == 0)
+        for ( CardPile pile : getFreeCellPiles() ) {
+            if ( pile.size() == 0 )
                 return pile;
         }
         return null;
     }
 
-    private boolean moveCard(CardPile source, CardPile target) {
-        if (source.size() == 0)
+    private boolean moveCard( CardPile source, CardPile target ) {
+        if ( source.size() == 0 )
             return false;
         Card crd = source.peekTop();
-        if (target.isAllowedtoAdd(crd)) {
+        if ( target.isAllowedtoAdd( crd ) ) {
             Rectangle pos = null;
             int x = crd.getX(), y = crd.getY();
-            if (!(target instanceof CardPileTableau)) {
+            if ( ! ( target instanceof CardPileTableau ) ) {
                 pos = target.getPosition();
             }
-            target.push(crd);
+            target.push( crd );
             source.pop();
-            recordStep(source, target);
-            if (pos != null) {
-                crd.moveTo(pos.x, pos.y);
+            recordStep( source, target );
+            if ( pos != null ) {
+                crd.moveTo( pos.x, pos.y );
             } else {
-                crd.moveFrom(x, y);
+                crd.moveFrom( x, y );
             }
-            if(state.equals(NEW)) {
+            if ( state.equals( NEW ) ) {
                 state = INPROGRESS;
             }
             return true;
@@ -321,42 +320,42 @@ public class GameModel implements Iterable<CardPile>, Serializable {
         return false;
     }
 
-    private void recordStep(CardPile source, CardPile target) {
-        if (target instanceof CardPileFoundation) {
+    private void recordStep( CardPile source, CardPile target ) {
+        if ( target instanceof CardPileFoundation ) {
             completedCards++;
-        } else if (source instanceof CardPileFoundation) {
+        } else if ( source instanceof CardPileFoundation ) {
             completedCards--;
         }
         moveHelpidx = 0;
-        undoStack.push(source);
-        undoStack.push(target);
+        undoStack.push( source );
+        undoStack.push( target );
     }
 
-    private boolean moveCards(ArrayList<Card> cards, CardPile source, CardPile target) {
-        if (source.size() == 0)
+    private boolean moveCards( ArrayList<Card> cards, CardPile source, CardPile target ) {
+        if ( source.size() == 0 )
             return false;
-        for (Card card2 : cards) {
-            target.push(card2);
+        for ( Card card2 : cards ) {
+            target.push( card2 );
             source.pop();
         }
-        recordBulkStep(source, target, cards.size());
+        recordBulkStep( source, target, cards.size() );
         return true;
     }
 
-    private void recordBulkStep(CardPile source, CardPile target, int size) {
-        if (target instanceof CardPileFoundation) {
+    private void recordBulkStep( CardPile source, CardPile target, int size ) {
+        if ( target instanceof CardPileFoundation ) {
             completedCards += size;
-        } else if (source instanceof CardPileFoundation) {
+        } else if ( source instanceof CardPileFoundation ) {
             completedCards -= size;
         }
         moveHelpidx = 0;
-        undoStack.push(source);
-        undoStack.push(new CardPileBulk(target, size));
+        undoStack.push( source );
+        undoStack.push( new CardPileBulk( target, size ) );
     }
 
     public void undoLastStep() {
-        if (noOfAutoMoves > 0) {
-            for (int i = 0; i < noOfAutoMoves; i++) {
+        if ( noOfAutoMoves > 0 ) {
+            for ( int i = 0; i < noOfAutoMoves; i++ ) {
                 undoMove();
                 noOfAutoMoves--;
             }
@@ -365,31 +364,31 @@ public class GameModel implements Iterable<CardPile>, Serializable {
     }
 
     public void undoMove() {
-        if (!undoStack.isEmpty()) {
+        if ( ! undoStack.isEmpty() ) {
             CardPile target = undoStack.pop();
             CardPile source = undoStack.pop();
-            if (target instanceof CardPileBulk) {
-                CardPileBulk bulk = (CardPileBulk) target;
+            if ( target instanceof CardPileBulk ) {
+                CardPileBulk bulk = ( CardPileBulk ) target;
                 ArrayList<Card> cards = new ArrayList<Card>();
-                for (int i = 0; i < bulk.count; i++) {
-                    cards.add(bulk.pile.pop());
+                for ( int i = 0; i < bulk.count; i++ ) {
+                    cards.add( bulk.pile.pop() );
                 }
-                Collections.reverse(cards);
-                for (Card card : cards) {
-                    source.pushIgnoreRules(card);
+                Collections.reverse( cards );
+                for ( Card card : cards ) {
+                    source.pushIgnoreRules( card );
                 }
-                if (source instanceof CardPileTableau) {
-                    ((CardPileTableau) source).updateCascades();
+                if ( source instanceof CardPileTableau ) {
+                    ( ( CardPileTableau ) source ).updateCascades();
                 }
             } else {
-                source.pushIgnoreRules(target.popIgnoreRules());
-                if (source instanceof CardPileTableau) {
-                    ((CardPileTableau) source).updateCascades();
+                source.pushIgnoreRules( target.popIgnoreRules() );
+                if ( source instanceof CardPileTableau ) {
+                    ( ( CardPileTableau ) source ).updateCascades();
                 }
-                if (target instanceof CardPileTableau) {
-                    ((CardPileTableau) target).deleteFromCascade(source.peekTop());
+                if ( target instanceof CardPileTableau ) {
+                    ( ( CardPileTableau ) target ).deleteFromCascade( source.peekTop() );
                 }
-                if (target instanceof CardPileFoundation) {
+                if ( target instanceof CardPileFoundation ) {
                     completedCards--;
                 }
             }
@@ -399,15 +398,15 @@ public class GameModel implements Iterable<CardPile>, Serializable {
     }
 
     public void validate() {
-        if (completedCards == 52) {
+        if ( completedCards == 52 ) {
             completedCards = 0;
-            new Thread(new Runnable() {
+            new Thread( new Runnable() {
                 @Override
                 public void run() {
                     state = COMPLETE;
                     try {
-                        Thread.sleep(500);
-                    } catch (InterruptedException e) {
+                        Thread.sleep( 500 );
+                    } catch ( InterruptedException e ) {
                         e.printStackTrace();
                     }
                     CardPile[] cardPile1 = getFoundationPiles();
@@ -419,100 +418,100 @@ public class GameModel implements Iterable<CardPile>, Serializable {
 
                     int targetY = UICardPanel.DISPLAY_HEIGHT + Card.CARD_HEIGHT;
 
-                    for (int i = 0; i < 52; i++) {
-                        synchronized (li0) {
-                            if (li0.hasPrevious()) {
+                    for ( int i = 0; i < 52; i++ ) {
+                        synchronized ( li0 ) {
+                            if ( li0.hasPrevious() ) {
                                 card = li0.previous();
                                 card.turnFaceDown();
-                                card.bounce(200, targetY, (i * 250));
+                                card.bounce( 200, targetY, ( i * 250 ) );
                             }
                         }
-                        synchronized (li1) {
-                            if (li1.hasPrevious()) {
+                        synchronized ( li1 ) {
+                            if ( li1.hasPrevious() ) {
                                 card = li1.previous();
                                 card.turnFaceDown();
-                                card.bounce(300, targetY, (i * 250));
+                                card.bounce( 300, targetY, ( i * 250 ) );
                             }
                         }
-                        synchronized (li2) {
-                            if (li2.hasPrevious()) {
+                        synchronized ( li2 ) {
+                            if ( li2.hasPrevious() ) {
                                 card = li2.previous();
                                 card.turnFaceDown();
-                                card.bounce(400, targetY, (i * 250));
+                                card.bounce( 400, targetY, ( i * 250 ) );
                             }
                         }
-                        synchronized (li3) {
-                            if (li3.hasPrevious()) {
+                        synchronized ( li3 ) {
+                            if ( li3.hasPrevious() ) {
                                 card = li3.previous();
                                 card.turnFaceDown();
-                                card.bounce(500, targetY, (i * 250));
+                                card.bounce( 500, targetY, ( i * 250 ) );
                             }
                         }
                     }
                     try {
-                        Thread.sleep(6000);
-                    } catch (InterruptedException e) {
+                        Thread.sleep( 6000 );
+                    } catch ( InterruptedException e ) {
                         e.printStackTrace();
                     }
                     showBlackScreen = true;
                     notifyChanges();
                     try {
-                        Thread.sleep(3000);
-                    } catch (InterruptedException e) {
+                        Thread.sleep( 3000 );
+                    } catch ( InterruptedException e ) {
                         e.printStackTrace();
                     }
-                    fireGameEvent(COMPLETE);
+                    fireGameEvent( COMPLETE );
                     showBlackScreen = false;
                 }
-            }).start();
+            } ).start();
         }
-        if (!hasMoves(false)) {
-            fireGameEvent(NOMOVESLEFT);
+        if ( ! hasMoves( false ) ) {
+            fireGameEvent( NOMOVESLEFT );
         }
     }
 
-    private boolean hasMoves(boolean showHelp) {
+    private boolean hasMoves( boolean showHelp ) {
         CardPile[] tPiles = getTableauPiles();
         CardPile[] fcPiles = getFreeCellPiles();
         CardPile[] fPiles = getFoundationPiles();
 
-        for (int j = 0; j < fcPiles.length; j++) {
-            if (fcPiles[j].size() == 0) {
+        for ( int j = 0; j < fcPiles.length; j++ ) {
+            if ( fcPiles[j].size() == 0 ) {
                 return true;
             } else {
                 CardPile cardPile2 = fcPiles[j];
-                for (int i = 0; i < tPiles.length; i++) {
+                for ( int i = 0; i < tPiles.length; i++ ) {
                     CardPile cardPile1 = tPiles[i];
-                    if (cardPile1.size() > 0) {
-                        if (cardPile1.isAllowedtoAdd(cardPile2.peekTop())) {
+                    if ( cardPile1.size() > 0 ) {
+                        if ( cardPile1.isAllowedtoAdd( cardPile2.peekTop() ) ) {
                             return true;
                         }
                     } else {
                         return true;
                     }
                 }
-                for (int i = 0; i < fPiles.length; i++) {
-                    if (fPiles[i].isAllowedtoAdd(cardPile2.peekTop())) {
+                for ( int i = 0; i < fPiles.length; i++ ) {
+                    if ( fPiles[i].isAllowedtoAdd( cardPile2.peekTop() ) ) {
                         return true;
                     }
                 }
             }
         }
 
-        for (int i = 0; i < tPiles.length; i++) {
+        for ( int i = 0; i < tPiles.length; i++ ) {
             CardPile cardPile1 = tPiles[i];
-            if (cardPile1.size() == 0) {
+            if ( cardPile1.size() == 0 ) {
                 return true;
             } else {
-                for (int j = i + 1; j < tPiles.length; j++) {
+                for ( int j = i + 1; j < tPiles.length; j++ ) {
                     CardPile cardPile2 = tPiles[j];
-                    boolean canMove = cardPile2.size() == 0 || cardPile2.isAllowedtoAdd(cardPile1.peekTop())
-                        || cardPile1.isAllowedtoAdd(cardPile2.peekTop());
-                    if (canMove)
+                    boolean canMove = cardPile2.size() == 0 || cardPile2.isAllowedtoAdd( cardPile1.peekTop() )
+                            || cardPile1.isAllowedtoAdd( cardPile2.peekTop() );
+                    if ( canMove )
                         return true;
                 }
-                for (int j = 0; j < fPiles.length; j++) {
-                    if (fPiles[j].isAllowedtoAdd(cardPile1.peekTop()))
+                for ( int j = 0; j < fPiles.length; j++ ) {
+                    if ( fPiles[j].isAllowedtoAdd( cardPile1.peekTop() ) )
                         return true;
                 }
             }
@@ -521,32 +520,32 @@ public class GameModel implements Iterable<CardPile>, Serializable {
     }
 
     public void findHint() {
-        CardPileTableau[] tPiles = (CardPileTableau[]) getTableauPiles();
+        CardPileTableau[] tPiles = ( CardPileTableau[] ) getTableauPiles();
         CardPile[] fcPiles = getFreeCellPiles();
         CardPile[] fPiles = getFoundationPiles();
         int idx = 0;
-        int maxMoves = getMaxNoOfCardsMovable(false);
+        int maxMoves = getMaxNoOfCardsMovable( false );
 
-        for (int i = 0; i < tPiles.length; i++) {
+        for ( int i = 0; i < tPiles.length; i++ ) {
             CardPileTableau cardPile1 = tPiles[i];
-            if (cardPile1.size() > 0) {
-                ArrayList<Card> cards = cardPile1.getCascades(maxMoves);
-                for (int j = 0; j < tPiles.length; j++) {
-                    if (j == i)
+            if ( cardPile1.size() > 0 ) {
+                ArrayList<Card> cards = cardPile1.getCascades( maxMoves );
+                for ( int j = 0; j < tPiles.length; j++ ) {
+                    if ( j == i )
                         continue;
                     CardPileTableau cardPile2 = tPiles[j];
-                    if (cardPile2.size() == 0) {
-                        int maxMovesToBlnk = getMaxNoOfCardsMovable(true);
+                    if ( cardPile2.size() == 0 ) {
+                        int maxMovesToBlnk = getMaxNoOfCardsMovable( true );
                         int cSize = cards.size();
                         int bIdx = maxMovesToBlnk > cSize ? cSize : cSize - maxMovesToBlnk;
-                        if (showHint(idx, cards.get(bIdx), cardPile2)) {
+                        if ( showHint( idx, cards.get( bIdx ), cardPile2 ) ) {
                             return;
                         }
                         idx++;
                     } else {
-                        for (Card card : cards) {
-                            if (cardPile2.isAllowedtoAdd(card)) {
-                                if (showHint(idx, card, cardPile2)) {
+                        for ( Card card : cards ) {
+                            if ( cardPile2.isAllowedtoAdd( card ) ) {
+                                if ( showHint( idx, card, cardPile2 ) ) {
                                     return;
                                 }
                                 idx++;
@@ -557,23 +556,23 @@ public class GameModel implements Iterable<CardPile>, Serializable {
             }
         }
 
-        for (int j = 0; j < fcPiles.length; j++) {
-            if (fcPiles[j].size() > 0) {
+        for ( int j = 0; j < fcPiles.length; j++ ) {
+            if ( fcPiles[j].size() > 0 ) {
                 CardPile cardPile2 = fcPiles[j];
-                for (int i = 0; i < tPiles.length; i++) {
+                for ( int i = 0; i < tPiles.length; i++ ) {
                     CardPile cardPile1 = tPiles[i];
-                    if (cardPile1.size() > 0) {
-                        if (cardPile1.isAllowedtoAdd(cardPile2.peekTop())) {
-                            if (showHint(idx, cardPile2.peekTop(), cardPile1)) {
+                    if ( cardPile1.size() > 0 ) {
+                        if ( cardPile1.isAllowedtoAdd( cardPile2.peekTop() ) ) {
+                            if ( showHint( idx, cardPile2.peekTop(), cardPile1 ) ) {
                                 return;
                             }
                             idx++;
                         }
                     }
                 }
-                for (int i = 0; i < fPiles.length; i++) {
-                    if (fPiles[i].isAllowedtoAdd(cardPile2.peekTop())) {
-                        if (showHint(idx, cardPile2.peekTop(), fPiles[i])) {
+                for ( int i = 0; i < fPiles.length; i++ ) {
+                    if ( fPiles[i].isAllowedtoAdd( cardPile2.peekTop() ) ) {
+                        if ( showHint( idx, cardPile2.peekTop(), fPiles[i] ) ) {
                             return;
                         }
                         idx++;
@@ -582,10 +581,10 @@ public class GameModel implements Iterable<CardPile>, Serializable {
             }
         }
 
-        for (int j = 0; j < fcPiles.length; j++) {
-            if (fcPiles[j].size() == 0) {
-                for (int i = 0; i < tPiles.length; i++) {
-                    if (showHint(idx, tPiles[i].peekTop(), fcPiles[j])) {
+        for ( int j = 0; j < fcPiles.length; j++ ) {
+            if ( fcPiles[j].size() == 0 ) {
+                for ( int i = 0; i < tPiles.length; i++ ) {
+                    if ( showHint( idx, tPiles[i].peekTop(), fcPiles[j] ) ) {
                         return;
                     }
                     idx++;
@@ -594,7 +593,7 @@ public class GameModel implements Iterable<CardPile>, Serializable {
             }
         }
 
-        if (idx > 0 && moveHelpidx == idx) {
+        if ( idx > 0 && moveHelpidx == idx ) {
             moveHelpidx = 0;
             findHint();
         } else {
@@ -602,18 +601,18 @@ public class GameModel implements Iterable<CardPile>, Serializable {
         }
     }
 
-    private boolean showHint(int idx, Card card, CardPile cardPile2) {
-        if (idx == moveHelpidx) {
+    private boolean showHint( int idx, Card card, CardPile cardPile2 ) {
+        if ( idx == moveHelpidx ) {
             clearHint();
 
-            card.blink(0);
+            card.blink( 0 );
             prevBlinkFrom = card;
 
-            if (cardPile2.size() > 0) {
-                cardPile2.peekTop().blink(1000);
+            if ( cardPile2.size() > 0 ) {
+                cardPile2.peekTop().blink( 1000 );
                 prevBlinkTo = cardPile2.peekTop();
             } else {
-                cardPile2.blink(1000);
+                cardPile2.blink( 1000 );
                 prevBlinkTo = cardPile2;
             }
             moveHelpidx++;
@@ -623,76 +622,76 @@ public class GameModel implements Iterable<CardPile>, Serializable {
     }
 
     private void clearHint() {
-        if (prevBlinkFrom != null) {
-            ((Card) prevBlinkFrom).stopBlink();
+        if ( prevBlinkFrom != null ) {
+            ( ( Card ) prevBlinkFrom ).stopBlink();
         }
-        if (prevBlinkTo != null) {
-            if (prevBlinkTo instanceof Card) {
-                ((Card) prevBlinkTo).stopBlink();
+        if ( prevBlinkTo != null ) {
+            if ( prevBlinkTo instanceof Card ) {
+                ( ( Card ) prevBlinkTo ).stopBlink();
             } else {
-                ((CardPile) prevBlinkTo).stopBlink();
+                ( ( CardPile ) prevBlinkTo ).stopBlink();
             }
         }
     }
 
-    private int getMaxNoOfCardsMovable(boolean toEmpty) {
+    private int getMaxNoOfCardsMovable( boolean toEmpty ) {
         int tCount = 0, fCount = 0;
         CardPile[] tPiles = getTableauPiles();
         CardPile[] fcPiles = getFreeCellPiles();
 
-        for (int j = 0; j < fcPiles.length; j++) {
-            if (fcPiles[j].size() == 0) {
+        for ( int j = 0; j < fcPiles.length; j++ ) {
+            if ( fcPiles[j].size() == 0 ) {
                 fCount++;
             }
         }
 
-        for (int j = 0; j < tPiles.length; j++) {
-            if (tPiles[j].size() == 0) {
+        for ( int j = 0; j < tPiles.length; j++ ) {
+            if ( tPiles[j].size() == 0 ) {
                 tCount++;
             }
         }
-        if (tCount > 0) {
-            if (fCount > 0) {
+        if ( tCount > 0 ) {
+            if ( fCount > 0 ) {
                 fCount--;
                 tCount++;
             }
-            if (toEmpty) {
+            if ( toEmpty ) {
                 tCount--;
             }
-            tCount = ((tCount * (tCount + 1)) / 2);
+            tCount = ( ( tCount * ( tCount + 1 ) ) / 2 );
         }
 
         return tCount + fCount + 1;
     }
 
     public void notifyChanges() {
-        fireGameEvent(MOVE, 52 - completedCards);
+        fireGameEvent( MOVE, 52 - completedCards );
     }
 
-    public synchronized void addGameListener(GameListener l) {
-        gameListeners.add(l);
+    public synchronized void addGameListener( GameListener l ) {
+        gameListeners.add( l );
     }
 
-    public synchronized void removeGameListener(GameListener l) {
-        gameListeners.remove(l);
+    public synchronized void removeGameListener( GameListener l ) {
+        gameListeners.remove( l );
     }
 
-    private synchronized void fireGameEvent(GameEvents eve, Object value) {
-        GameEvent event = new GameEvent(this, eve, value);
-        for (GameListener listener : gameListeners) {
-            listener.onEvent(event);
+    private synchronized void fireGameEvent( GameEvents eve, Object value ) {
+        GameEvent event = new GameEvent( this, eve, value );
+        for ( GameListener listener : gameListeners ) {
+            listener.onEvent( event );
         }
     }
 
-    private void fireGameEvent(GameEvents eve) {
-        fireGameEvent(eve, null);
+    private void fireGameEvent( GameEvents eve ) {
+        fireGameEvent( eve, null );
     }
 
     public Iterator<CardPile> iterator() {
         return allPiles.iterator();
     }
 
-    public CardPile getTableauPile(int i) {
+    public CardPile getTableauPile( int i ) {
         return tableau[i];
     }
 
@@ -704,7 +703,7 @@ public class GameModel implements Iterable<CardPile>, Serializable {
         return freeCells;
     }
 
-    public CardPile getFreeCellPile(int cellNum) {
+    public CardPile getFreeCellPile( int cellNum ) {
         return freeCells[cellNum];
     }
 
@@ -712,19 +711,19 @@ public class GameModel implements Iterable<CardPile>, Serializable {
         return foundation;
     }
 
-    public CardPile getFoundationPile(int cellNum) {
+    public CardPile getFoundationPile( int cellNum ) {
         return foundation[cellNum];
     }
 
-    public void setAutoComplete(boolean autoComplete) {
+    public void setAutoComplete( boolean autoComplete ) {
         this.autoComplete = autoComplete;
     }
-    
+
     public GameEvents getState() {
         return state;
     }
 
-    private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
+    private void readObject( ObjectInputStream ois ) throws IOException, ClassNotFoundException {
         ois.defaultReadObject();
         gameListeners = new ArrayList<GameListener>();
         undoStack = new ArrayDeque<CardPile>();
