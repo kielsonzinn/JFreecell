@@ -1,12 +1,13 @@
 package com.sri.jfreecell;
 
-import java.awt.AlphaComposite;
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
-import java.awt.RenderingHints;
+import org.pushingpixels.trident.Timeline;
+import org.pushingpixels.trident.Timeline.TimelineState;
+import org.pushingpixels.trident.callback.TimelineCallbackAdapter;
+import org.pushingpixels.trident.interpolator.KeyFrames;
+import org.pushingpixels.trident.interpolator.KeyTimes;
+import org.pushingpixels.trident.interpolator.KeyValues;
+
+import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -15,13 +16,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.ListIterator;
-
-import org.pushingpixels.trident.Timeline;
-import org.pushingpixels.trident.Timeline.TimelineState;
-import org.pushingpixels.trident.callback.TimelineCallbackAdapter;
-import org.pushingpixels.trident.interpolator.KeyFrames;
-import org.pushingpixels.trident.interpolator.KeyTimes;
-import org.pushingpixels.trident.interpolator.KeyValues;
 
 /**
  * A pile of cards (can be used for a hand, deck, discard pile...)

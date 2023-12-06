@@ -1,6 +1,6 @@
 package com.sri.jfreecell;
 
-import java.awt.Color;
+import java.awt.*;
 
 /**
  * A card suit type

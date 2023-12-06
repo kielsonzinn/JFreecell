@@ -1,26 +1,17 @@
 package com.sri.jfreecell;
 
-import static com.sri.jfreecell.event.GameEvents.COMPLETE;
-import static com.sri.jfreecell.event.GameEvents.INPROGRESS;
-import static com.sri.jfreecell.event.GameEvents.MOVE;
-import static com.sri.jfreecell.event.GameEvents.NEW;
-import static com.sri.jfreecell.event.GameEvents.NOMOVESLEFT;
-
-import java.awt.Color;
-import java.awt.Rectangle;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.Serializable;
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.ListIterator;
-import java.util.concurrent.ThreadLocalRandom;
-
 import com.sri.jfreecell.event.GameEvent;
 import com.sri.jfreecell.event.GameEvents;
 import com.sri.jfreecell.event.GameListener;
+
+import java.awt.*;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.Serializable;
+import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
+
+import static com.sri.jfreecell.event.GameEvents.*;
 
 /**
  * Model for the Game.

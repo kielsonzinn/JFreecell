@@ -2,9 +2,7 @@
 
 package com.sri.jfreecell;
 
-import java.awt.Rectangle;
-
-import javax.swing.JLabel;
+import java.awt.*;
 
 /**
  * Represents a Foundation card pile. This is a non removable pile. Card will be

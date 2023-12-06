@@ -1,19 +1,5 @@
 package com.sri.jfreecell;
 
-import java.awt.AlphaComposite;
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-import java.awt.geom.RoundRectangle2D;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.Serializable;
-import java.net.URL;
-
-import javax.swing.ImageIcon;
-
 import org.pushingpixels.trident.Timeline;
 import org.pushingpixels.trident.Timeline.TimelineState;
 import org.pushingpixels.trident.callback.TimelineCallbackAdapter;
@@ -21,6 +7,14 @@ import org.pushingpixels.trident.ease.Spline;
 import org.pushingpixels.trident.interpolator.KeyFrames;
 import org.pushingpixels.trident.interpolator.KeyTimes;
 import org.pushingpixels.trident.interpolator.KeyValues;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.geom.RoundRectangle2D;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.Serializable;
+import java.net.URL;
 
 /**
  * Represents a single Card.<br>

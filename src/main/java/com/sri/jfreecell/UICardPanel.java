@@ -1,28 +1,19 @@
 package com.sri.jfreecell;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Rectangle;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
-import java.util.concurrent.CountDownLatch;
-
-import javax.swing.JComponent;
-
+import com.sri.jfreecell.firework.VolleyExplosion;
 import org.pushingpixels.trident.Timeline;
 import org.pushingpixels.trident.Timeline.RepeatBehavior;
 import org.pushingpixels.trident.TimelineScenario;
 import org.pushingpixels.trident.callback.TimelineScenarioCallback;
 import org.pushingpixels.trident.swing.SwingRepaintTimeline;
 
-import com.sri.jfreecell.firework.VolleyExplosion;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.util.*;
+import java.util.concurrent.CountDownLatch;
 
 /**
  * JPanel that displays cards, and manages the mouse.

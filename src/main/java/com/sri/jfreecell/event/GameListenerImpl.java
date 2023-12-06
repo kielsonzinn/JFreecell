@@ -1,17 +1,11 @@
 package com.sri.jfreecell.event;
 
-import static javax.swing.JOptionPane.ERROR_MESSAGE;
-import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
-import static javax.swing.JOptionPane.YES_NO_OPTION;
-import static javax.swing.JOptionPane.showOptionDialog;
-
-import java.awt.GridLayout;
-
-import javax.swing.JCheckBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-
 import com.sri.jfreecell.UIFreeCell;
+
+import javax.swing.*;
+import java.awt.*;
+
+import static javax.swing.JOptionPane.*;
 
 /**
  * Game event listener implementation class

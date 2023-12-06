@@ -1,18 +1,11 @@
 package com.sri.jfreecell.event;
 
-import static com.sri.jfreecell.event.MenuActionListener.MenuAction.ABOUT;
-import static com.sri.jfreecell.event.MenuActionListener.MenuAction.HELP;
-import static com.sri.jfreecell.event.MenuActionListener.MenuAction.EXIT;
-import static com.sri.jfreecell.event.MenuActionListener.MenuAction.HINT;
-import static com.sri.jfreecell.event.MenuActionListener.MenuAction.SELECT;
-import static com.sri.jfreecell.event.MenuActionListener.MenuAction.NEW;
-import static com.sri.jfreecell.event.MenuActionListener.MenuAction.RESTART;
-import static com.sri.jfreecell.event.MenuActionListener.MenuAction.UNDO;
+import com.sri.jfreecell.UIFreeCell;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import com.sri.jfreecell.UIFreeCell;
+import static com.sri.jfreecell.event.MenuActionListener.MenuAction.*;
 
 /**
  * Listener class for Menu actions.

@@ -1,13 +1,10 @@
 package com.sri.jfreecell.firework;
 
+import java.awt.*;
+import java.awt.geom.Ellipse2D;
+
 import static java.awt.RenderingHints.KEY_ANTIALIASING;
 import static java.awt.RenderingHints.VALUE_ANTIALIAS_ON;
-
-import java.awt.AlphaComposite;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.geom.Ellipse2D;
 
 /**
  * Represents a single circle in an explosion.

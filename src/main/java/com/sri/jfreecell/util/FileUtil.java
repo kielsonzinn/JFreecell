@@ -1,10 +1,6 @@
 package com.sri.jfreecell.util;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 
 public class FileUtil {
    public static final String STATE_FILE = "state.ser";

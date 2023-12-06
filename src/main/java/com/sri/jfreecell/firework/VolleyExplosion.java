@@ -1,14 +1,13 @@
 package com.sri.jfreecell.firework;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.util.HashSet;
-import java.util.Random;
-import java.util.Set;
-
 import org.pushingpixels.trident.Timeline;
 import org.pushingpixels.trident.TimelineScenario;
 import org.pushingpixels.trident.ease.Spline;
+
+import java.awt.*;
+import java.util.HashSet;
+import java.util.Random;
+import java.util.Set;
 
 /**
  * Represents a whole explosion of firework.
