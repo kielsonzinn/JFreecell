@@ -1,12 +1,5 @@
 package com.sri.jfreecell;
 
-import org.pushingpixels.trident.Timeline;
-import org.pushingpixels.trident.Timeline.TimelineState;
-import org.pushingpixels.trident.callback.TimelineCallbackAdapter;
-import org.pushingpixels.trident.interpolator.KeyFrames;
-import org.pushingpixels.trident.interpolator.KeyTimes;
-import org.pushingpixels.trident.interpolator.KeyValues;
-
 import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
 import java.io.IOException;
@@ -24,35 +17,20 @@ import java.util.ListIterator;
  * @author Sateesh Gampala
  *
  */
-public class CardPile implements Iterable<Card>, Serializable {
+public class CardPile extends CardTimeline implements Iterable<Card>, Serializable {
    private static final long serialVersionUID = 3039382357994794527L;
    public static final int TABLEAU_INCR_Y = 18;
 
    protected ArrayList<Card> cards = new ArrayList<Card>(); // All the cards.
    protected Rectangle loc = null;
-
-   private transient boolean highlight = false;
-   private Color backgroundColor;
    private float opacity = 0.7f;
-   private transient Timeline blinkTimeline;
 
    public CardPile() {
       initTimeLines();
    }
 
    private void initTimeLines() {
-      blinkTimeline = new Timeline(this);
-      blinkTimeline.setDuration(2000);
-      blinkTimeline.addCallback(new TimelineCallbackAdapter() {
-         @Override
-         public void onTimelineStateChanged(TimelineState oldState, TimelineState newState, float duration,
-               float timelinePos) {
-            if (newState == TimelineState.DONE) {
-               backgroundColor = Color.yellow;
-               highlight = false;
-            }
-         }
-      });
+      createBlinkTimeline();
    }
 
    public void pushIgnoreRules(Card newCard) {
@@ -223,19 +201,6 @@ public class CardPile implements Iterable<Card>, Serializable {
       RoundRectangle2D roundedRectangle = new RoundRectangle2D.Float(loc.x, loc.y, loc.width, loc.height, 10, 10);
       g2.draw(roundedRectangle);
       g2.dispose();
-   }
-
-   public void blink(int delay) {
-      highlight = true;
-      backgroundColor = Color.red;
-      KeyValues<Float> xValues = KeyValues.create(1f, 0.75f, 0.5f, 0.75f, 1f, 0.75f, 0.5f, 0.75f, 1f);
-      KeyTimes alphaTimes = new KeyTimes(0f, 0.2f, 0.3f, 0.4f, 0.5f, 0.6f, 0.7f, 0.8f, 1f);
-      try {
-         blinkTimeline.setInitialDelay(delay);
-      } catch (Exception ex) {
-      }
-      blinkTimeline.addPropertyToInterpolate("opacity", new KeyFrames<Float>(xValues, alphaTimes));
-      this.blinkTimeline.replay();
    }
 
    public void stopBlink() {
