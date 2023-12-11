@@ -52,17 +52,23 @@ public class UIFreeCell extends JFrame {
 
     public static void main(String[] args) {
         checkIfRunning();
-        try {
-            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        checkLoadWindowsStyle();
 
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 new UIFreeCell();
             }
         });
+    }
+
+    private static void checkLoadWindowsStyle() {
+        if (System.getProperty("os.name").toLowerCase().contains("win")) {
+            try {
+                UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public UIFreeCell() {
