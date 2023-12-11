@@ -7,7 +7,6 @@ import java.awt.*;
 /**
  * Represents a Foundation card pile. This is a non removable pile. Card will be
  * collected as per deck order.
- *
  * @author Sateesh Gampala
  *
  */
