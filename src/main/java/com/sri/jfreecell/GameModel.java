@@ -378,8 +378,8 @@ public class GameModel implements Iterable<CardPile>, Serializable {
          if (target instanceof CardPileBulk) {
             CardPileBulk bulk = (CardPileBulk) target;
             ArrayList<Card> cards = new ArrayList<Card>();
-            for (int i = 0; i < bulk.count; i++) {
-               cards.add(bulk.pile.pop());
+            for (int i = 0; i < bulk.getCount(); i++) {
+               cards.add(bulk.getCardPile().pop());
             }
             Collections.reverse(cards);
             for (Card card : cards) {
