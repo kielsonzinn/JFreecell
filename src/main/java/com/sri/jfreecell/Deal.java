@@ -14,7 +14,6 @@ public class Deal {
    private static final ClassLoader CLSLDR = Deal.class.getClassLoader();
    private static final String ranks = ".A23456789TJQK";
    private static final String suits = "CDHS";
-   private static InputStream stream;
 
    private static CardPile initialize(int[] deals) {
       // Gives cards AC - KC, AD - KD, AH - KH, AS - KS
@@ -53,7 +52,7 @@ public class Deal {
    }
 
    public static final CardPile initialize(int dealNumber) throws IOException {
-      stream = CLSLDR.getResourceAsStream("32000.txt");
+      InputStream stream = CLSLDR.getResourceAsStream("32000.txt");
       Scanner sc = new Scanner(stream);
       try {
          for (int i = 0; i <= 32000; i++) {
