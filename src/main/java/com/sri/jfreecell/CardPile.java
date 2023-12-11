@@ -67,6 +67,10 @@ public class CardPile extends CardTimeline implements Iterable<Card>, Serializab
       return true;
    }
 
+   public boolean isAllowedToAddCardCascade(int qt) {
+      return true;
+   }
+
    /**
     * Gets no of card in the Pile
     *

@@ -16,6 +16,11 @@ public class CardPileFreeCell extends CardPile {
    }
 
    @Override
+   public boolean isAllowedToAddCardCascade(int qt) {
+      return qt == 1;
+   }
+
+   @Override
    public boolean isMovable(Card card) {
       return true;
    }

@@ -103,4 +103,9 @@ public class CardPileTableau extends CardPile {
          }
       }
    }
+
+   public int getCascadesSize() {
+      return cascadedCards.size();
+   }
+
 }

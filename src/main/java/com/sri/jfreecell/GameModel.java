@@ -147,6 +147,14 @@ public class GameModel implements Iterable<CardPile>, Serializable {
    }
 
    public boolean moveFromPileToPile(Card card, CardPile source, CardPile target) {
+      if (source instanceof CardPileTableau ) {
+         int cascadesSize = ( ( CardPileTableau ) source ).getCascadesSize();
+
+         if (!target.isAllowedToAddCardCascade( cascadesSize ) ) {
+            return false;
+         }
+      }
+
       if (card.equals(source.peekTop())) {
          return moveCard(source, target);
       } else {
