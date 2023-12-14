@@ -4,7 +4,7 @@
 Wecolme to JFreecell! This is an open-source implementation of the Freecell solitaire game in Java.
 
 <details closed>
-- Access the complete project documentations: ![DOCS](https://github.com/kielsonzinn/JFreecell/wiki)
+- Access the complete project documentations: https://github.com/kielsonzinn/JFreecell/wiki
 
 - **Compiling and running**:
     • Use the following command to compile the game:
@@ -30,7 +30,7 @@ The JFreecell project is open source, and we encourage community contributions. 
 Bem-vindo ao JFreecell! Este é um jogo de paciência Freecell implementado em Java, de código aberto.
 
 <details closed>
-- Acesse à documentação completa do projeto: [DOCS](https://github.com/kielsonzinn/JFreecell/wiki)
+- Acesse à documentação completa do projeto: https://github.com/kielsonzinn/JFreecell/wiki
 
 - **Compilando e executando**:
     • Utilize o seguinte comando para compilar o jogo:
