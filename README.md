@@ -4,7 +4,7 @@
 Wecolme to JFreecell! This is an open-source implementation of the Freecell solitaire game in Java.
 
 <details closed>
-- Access the complete project documentations: https://github.com/kielsonzinn/JFreecell/wiki
+- Access the complete project documentations: <a href="https://github.com/kielsonzinn/JFreecell/wiki">WIKI</a>
 
 - **Compiling and running**:
     • Use the following command to compile the game:
