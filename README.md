@@ -30,7 +30,7 @@ The JFreecell project is open source, and we encourage community contributions. 
 Bem-vindo ao JFreecell! Este é um jogo de paciência Freecell implementado em Java, de código aberto.
 
 <details closed>
-- Acesse à documentação completa do projeto:  <a href="https://github.com/kielsonzinn/JFreecell/wiki">WIKI</a>
+- Acesse à documentação completa do projeto:  <a href="https://github.com/kielsonzinn/JFreecell/wiki">Wiki</a>
  
 - **Compilando e executando**:
     • Utilize o seguinte comando para compilar o jogo:
